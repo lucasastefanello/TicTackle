@@ -1,30 +1,55 @@
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class ComoJogar extends JDialog {
-    private JPanel contentPane;
-    private JButton buttonOK;
-    private JLabel description_game;
 
-    public ComoJogar() {
-        setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+	private final JPanel contentPanel = new JPanel();
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			ComoJogar dialog = new ComoJogar();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-        description_game = new JLabel("<html>O jogo Tic Tackle é composto de um tabuleiro com 16 posições,<br>" +
-                "onde cada jogador terá quatro peças e para vencer a partida <br>" +
-                "deve formar um linha reta ou diagonal com três, das quatro peças.</html>", SwingConstants.CENTER);
-    }
+	/**
+	 * Create the dialog.
+	 */
+	public ComoJogar() {
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setLayout(new FlowLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
 
-    private void onOK() {
-// add your code here
-        dispose();
-    }
 }

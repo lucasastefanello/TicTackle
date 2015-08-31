@@ -8,7 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class PartidaCancelada extends JDialog {
+public class InformarVencedor extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
@@ -17,7 +17,7 @@ public class PartidaCancelada extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			PartidaCancelada dialog = new PartidaCancelada();
+			InformarVencedor dialog = new InformarVencedor();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -28,7 +28,7 @@ public class PartidaCancelada extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public PartidaCancelada() {
+	public InformarVencedor() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
