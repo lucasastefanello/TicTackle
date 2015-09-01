@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class PartidaCancelada extends JDialog {
 
@@ -29,11 +31,17 @@ public class PartidaCancelada extends JDialog {
 	 * Create the dialog.
 	 */
 	public PartidaCancelada() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 531, 232);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		{
+			JLabel lblPartidaCanceladaPelo = new JLabel("Partida cancelada pelo usuário TAL");
+			lblPartidaCanceladaPelo.setFont(new Font("Lithos Pro", Font.PLAIN, 20));
+			lblPartidaCanceladaPelo.setBounds(54, 64, 423, 43);
+			contentPanel.add(lblPartidaCanceladaPelo);
+		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -43,11 +51,6 @@ public class PartidaCancelada extends JDialog {
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
 			}
 		}
 	}

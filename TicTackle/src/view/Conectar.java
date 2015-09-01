@@ -3,14 +3,29 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import java.awt.Font;
+import java.awt.Color;
 
 public class Conectar extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private JTextField textField_nome;
+	private JTextField textField;
+	private final Border RAISED_LEVEL = BorderFactory.createRaisedBevelBorder();
+	private final Border LOWERED_LEVEL = BorderFactory
+			.createLoweredBevelBorder();
+	private final CompoundBorder BORDER_COMPOUND = BorderFactory
+			.createCompoundBorder(RAISED_LEVEL, LOWERED_LEVEL);
 
 	/**
 	 * Launch the application.
@@ -29,11 +44,41 @@ public class Conectar extends JDialog {
 	 * Create the dialog.
 	 */
 	public Conectar() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 533, 380);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setBorder(BORDER_COMPOUND);
+		contentPanel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Nome:");
+		lblNewLabel.setBounds(236, 161, 61, 16);
+		contentPanel.add(lblNewLabel);
+		
+		textField_nome = new JTextField();
+		textField_nome.setBounds(127, 189, 278, 28);
+		contentPanel.add(textField_nome);
+		textField_nome.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Server:");
+		lblNewLabel_1.setBounds(236, 241, 61, 16);
+		contentPanel.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setBounds(127, 262, 278, 28);
+		contentPanel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblTicTackle = new JLabel("Tic Tackle");
+		lblTicTackle.setForeground(new Color(0, 204, 102));
+		lblTicTackle.setFont(new Font("Lithos Pro", Font.PLAIN, 40));
+		lblTicTackle.setBounds(121, 20, 291, 57);
+		contentPanel.add(lblTicTackle);
+		
+		JLabel lblConectar = new JLabel("Conectar");
+		lblConectar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lblConectar.setBounds(224, 96, 85, 28);
+		contentPanel.add(lblConectar);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -51,5 +96,4 @@ public class Conectar extends JDialog {
 			}
 		}
 	}
-
 }
