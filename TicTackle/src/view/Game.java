@@ -86,6 +86,7 @@ public class Game extends JFrame {
 		initialize();
 		setProperties();
 		addListeners();
+		
 	}
 
 	public void initialize(){
@@ -394,10 +395,6 @@ public class Game extends JFrame {
 		});
 	}
 	
-	public void count(Posicao position){
-			
-	}
-	
 	public static Image loadImage(String name) {
 		String filename = "images/" + name;
 		return new ImageIcon(filename).getImage();
@@ -420,8 +417,35 @@ public class Game extends JFrame {
 		
 		if(countClicks == 2){
 			countClicks = 0;
-			controle.ehMovimentoValido(prePos, position);
+			
+			if(controle.ehMovimentoValido(prePos, position)){
+				controle.setPosicoesGame(getPosicoes());
+			}
 		}
 	}
 	
+
+	public Posicao[] getPosicoes(){
+		
+		Posicao [] posicoes = new Posicao[16];
+
+		posicoes[0] = position_1_1;
+		posicoes[1] = position_1_2;
+		posicoes[2] = position_1_3;
+		posicoes[3] = position_1_4;
+		posicoes[4] = position_2_1;
+		posicoes[5] = position_2_2;
+		posicoes[6] = position_2_3;
+		posicoes[7] = position_2_4;
+		posicoes[8] = position_3_1;
+		posicoes[9] = position_3_2;
+		posicoes[10] = position_3_3;
+		posicoes[11] = position_3_4;
+		posicoes[12] = position_4_1;
+		posicoes[13] = position_4_2;
+		posicoes[14] = position_4_3;
+		posicoes[15] = position_4_4;
+		
+		return posicoes;
+	}
 }

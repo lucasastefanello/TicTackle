@@ -22,25 +22,23 @@ public class InformarVencedor extends JDialog {
 			.createLoweredBevelBorder();
 	private final CompoundBorder BORDER_COMPOUND = BorderFactory
 			.createCompoundBorder(RAISED_LEVEL, LOWERED_LEVEL);
+	private static String name;
 
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
-			InformarVencedor dialog = new InformarVencedor();
+			InformarVencedor dialog = new InformarVencedor(name);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * Create the dialog.
 	 */
-	public InformarVencedor() {
+	public InformarVencedor(String name) {
+		this.name = name;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,7 +46,7 @@ public class InformarVencedor extends JDialog {
 		contentPanel.setBorder(BORDER_COMPOUND);
 		contentPanel.setLayout(null);
 		
-		JLabel lblOJogadorTal = new JLabel("O jogador TAL venceu a partida!");
+		JLabel lblOJogadorTal = new JLabel("O jogador "+ name + " venceu a partida!");
 		lblOJogadorTal.setFont(new Font("Lithos Pro", Font.PLAIN, 20));
 		lblOJogadorTal.setBounds(41, 92, 368, 54);
 		contentPanel.add(lblOJogadorTal);

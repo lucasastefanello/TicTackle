@@ -6,19 +6,32 @@ public class Tabuleiro{
 	
 	private Jogador jogadorAzul;
 	private Jogador jogadorVermelho;
+	private ExisteVencedor searchWinner;
+	private Posicao [] posicoes;
+	private int [] estado;
+	private char[][] matriz;
+	private String[] words;
 	
 	// 0 == blue
 	// 1 == red
 	
 	public Tabuleiro(){
+				
 		jogadorAzul = new Jogador("jogadorAzul", "azul");
 		jogadorVermelho = new Jogador("jogadorVermelho", "vermelho");
 		
 		jogadorAzul.setDaVez(true);
 		jogadorVermelho.setDaVez(true);
+		
+		words = new String[2];
+		
+		matriz = new char[4][4];
+		
+		words[0] = "000";
+		words[1] = "111";
 	}
 	
-	public void verificaMovimento(Posicao prePos, Posicao posPos){
+	public boolean verificaMovimento(Posicao prePos, Posicao posPos){
 		
 		if(posPos.getType() == -1 && (prePos.getType() == 1 || prePos.getType() == 0)){
 			
@@ -35,21 +48,26 @@ public class Tabuleiro{
 						trocarPosicao(prePos, posPos);
 						jogadorAzul.setDaVez(false);
 						jogadorVermelho.setDaVez(true);
+						if(ehVencedor(0)){
+							
+						}
 					}
 					
 					if(jogadorVermelho.isDaVez() && prePos.getType() == 1){
 						trocarPosicao(prePos, posPos);
 						jogadorAzul.setDaVez(true);
 						jogadorVermelho.setDaVez(false);
+						if(ehVencedor(1)){
+							
+						}
 					}
+					return true;
 				}
 			}
 		}
-	}	
-	
-	public void salvaEstado(){
 		
-	}
+		return false;
+	}	
 	
 	public void trocarPosicao(Posicao prePos, Posicao posPos){
 		int tempTypePre = prePos.getType();
@@ -76,4 +94,78 @@ public class Tabuleiro{
 		}
 		System.gc();
 	}
+	
+	public boolean ehVencedor(int i){
+	
+		inicializarMatriz();
+		searchWinner = new ExisteVencedor(matriz, words[i]);
+		return searchWinner.solve();
+	}
+	
+	
+	public void getEstado(){
+		for(int i = 0; i < posicoes.length; i ++){
+			estado[i] = posicoes[i].getType();
+		}
+	}
+	
+	public void enviaEstado(Posicao prePos, Posicao posPre){
+		Posicao [] estado = new Posicao[2];
+		estado[0] = prePos;
+		estado[1] = posPre;
+		
+		// netGames envia array...
+	}
+	
+	public void recebeEstado(Posicao prePos, Posicao posPos){
+		
+		int columnPre = prePos.getColumn();
+		int rowPre = prePos.getRow();
+	
+		int columnPos = posPos.getColumn();
+		int rowPos = posPos.getRow();
+		
+		for(int i = 0; i < posicoes.length; i ++){
+			
+			if(posicoes[i].getColumn() == columnPre && posicoes[i].getRow() == rowPre){
+				prePos = posicoes[i];
+			}
+			
+			if(posicoes[i].getColumn() == columnPos && posicoes[i].getRow() == rowPos){
+				posPos = posicoes[i];
+			}
+		}
+		
+		trocarPosicao(prePos, posPos);
+		setCor(prePos, posPos);
+	}
+	
+	public void inicializarMatriz(){
+		
+		if(posicoes != null){
+			matriz[0][0] = Integer.toString(posicoes[0].getType()).charAt(0);
+			matriz[0][1] = Integer.toString(posicoes[1].getType()).charAt(0);
+			matriz[0][2] = Integer.toString(posicoes[2].getType()).charAt(0);
+			matriz[0][3] = Integer.toString(posicoes[3].getType()).charAt(0);
+			matriz[1][0] = Integer.toString(posicoes[4].getType()).charAt(0);
+			matriz[1][1] = Integer.toString(posicoes[5].getType()).charAt(0);
+			matriz[1][2] = Integer.toString(posicoes[6].getType()).charAt(0);
+			matriz[1][3] = Integer.toString(posicoes[7].getType()).charAt(0);
+			matriz[2][0] = Integer.toString(posicoes[8].getType()).charAt(0);
+			matriz[2][1] = Integer.toString(posicoes[9].getType()).charAt(0);
+			matriz[2][2] = Integer.toString(posicoes[10].getType()).charAt(0);;
+			matriz[2][3] = Integer.toString(posicoes[11].getType()).charAt(0);
+			matriz[3][0] = Integer.toString(posicoes[12].getType()).charAt(0);
+			matriz[3][1] = Integer.toString(posicoes[13].getType()).charAt(0);
+			matriz[3][2] = Integer.toString(posicoes[14].getType()).charAt(0);
+			matriz[3][3] = Integer.toString(posicoes[15].getType()).charAt(0);
+		}
+	}
+	
+	
+	public void recebePosicoes(Posicao[] posicoes){
+		this.posicoes = posicoes;
+	}
+
+	
 }
