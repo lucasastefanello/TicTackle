@@ -4,8 +4,18 @@ import java.awt.Color;
 
 public class Tabuleiro{
 	
+	private Jogador jogadorAzul;
+	private Jogador jogadorVermelho;
+	
+	// 0 == blue
+	// 1 == red
+	
 	public Tabuleiro(){
+		jogadorAzul = new Jogador("jogadorAzul", "azul");
+		jogadorVermelho = new Jogador("jogadorVermelho", "vermelho");
 		
+		jogadorAzul.setDaVez(true);
+		jogadorVermelho.setDaVez(true);
 	}
 	
 	public void verificaMovimento(Posicao prePos, Posicao posPos){
@@ -20,7 +30,18 @@ public class Tabuleiro{
 			
 			if(isSameColunm || isSameRow){	
 				if(diferenceColunm || diferenceRow){
-					trocarPosicao(prePos, posPos);
+					
+					if(jogadorAzul.isDaVez() && prePos.getType() == 0){
+						trocarPosicao(prePos, posPos);
+						jogadorAzul.setDaVez(false);
+						jogadorVermelho.setDaVez(true);
+					}
+					
+					if(jogadorVermelho.isDaVez() && prePos.getType() == 1){
+						trocarPosicao(prePos, posPos);
+						jogadorAzul.setDaVez(true);
+						jogadorVermelho.setDaVez(false);
+					}
 				}
 			}
 		}
