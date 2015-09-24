@@ -15,10 +15,6 @@ import javax.swing.JButton;
 import controller.Controle;
 import model.Posicao;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseListener;
-import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,7 +25,7 @@ public class Game extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private JPanel container;
 	private final Border RAISED_LEVEL = BorderFactory.createRaisedBevelBorder();
 	private final Border LOWERED_LEVEL = BorderFactory
 			.createLoweredBevelBorder();
@@ -55,13 +51,13 @@ public class Game extends JFrame {
 	
 	protected Posicao prePos;
 	
-	protected int countClicks;
+	protected int contarCliques;
 	
 	protected Controle controle;
 	private JPanel panel;
-	private JButton btnComoJogar;
-	private JButton button_desistir_partida;
-	private JButton btnReiniciarPartida;
+	private JButton btn_como_jogar;
+	private JButton btn_desistir_partida;
+	private JButton btn_reiniciar_partida;
 	
 	/**
 	 * Launch the application.
@@ -86,12 +82,13 @@ public class Game extends JFrame {
 		initialize();
 		setProperties();
 		addListeners();
+		setContainerJogo();
 		
 	}
 
 	public void initialize(){
 		
-		contentPane = new JPanel();
+		container = new JPanel();
 		
 		controle = new Controle();
 		
@@ -145,11 +142,11 @@ public class Game extends JFrame {
 		
 		panel = new JPanel();
 		
-		btnComoJogar = new JButton("Como Jogar?");
+		btn_como_jogar = new JButton("Como Jogar?");
 		
-		btnReiniciarPartida = new JButton("Reiniciar Partida");
+		btn_reiniciar_partida = new JButton("Reiniciar Partida");
 
-		button_desistir_partida = new JButton("Desistir da Partida");
+		btn_desistir_partida = new JButton("Desistir da Partida");
 
 	}
 	
@@ -158,103 +155,103 @@ public class Game extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setBounds(100, 100, 493, 549);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setBorder(BORDER_COMPOUND);
+		container.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(container);
+		container.setBorder(BORDER_COMPOUND);
 		
 		position_1_1.setBackground(Color.RED);
 		position_1_1.setBounds(17, 11, 103, 100);
 		position_1_1.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_1_1);
+		container.add(position_1_1);
 		
 		position_1_2.setBackground(Color.BLUE);
 		position_1_2.setBounds(137, 11, 100, 100);
 		position_1_2.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_1_2);
+		container.add(position_1_2);
 		
 		position_1_3.setBackground(Color.RED);
 		position_1_3.setBounds(254, 11, 100, 100);
 		position_1_3.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_1_3);
+		container.add(position_1_3);
 		
 		position_1_4.setBackground(Color.BLUE);
 		position_1_4.setBounds(371, 11, 100, 100);
 		position_1_4.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_1_4);
+		container.add(position_1_4);
 		
 		position_2_1.setBackground(Color.LIGHT_GRAY);
 		position_2_1.setBounds(17, 123, 103, 100);
 		position_2_1.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_2_1);
+		container.add(position_2_1);
 		
 		position_2_2.setBackground(Color.LIGHT_GRAY);
 		position_2_2.setBounds(137, 123, 100, 100);
 		position_2_2.setBorder(BORDER_COMPOUND);
-		contentPane.setLayout(null);
-		contentPane.add(position_2_2);
+		container.setLayout(null);
+		container.add(position_2_2);
 		
 		position_2_3.setBackground(Color.LIGHT_GRAY);
 		position_2_3.setBounds(254, 123, 100, 100);
 		position_2_3.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_2_3);
+		container.add(position_2_3);
 		
 		position_2_4.setBackground(Color.LIGHT_GRAY);
 		position_2_4.setBounds(371, 123, 100, 100);
 		position_2_4.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_2_4);
+		container.add(position_2_4);
 		
 		position_3_1.setBackground(Color.LIGHT_GRAY);
 		position_3_1.setBounds(18, 235, 100, 100);
 		position_3_1.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_3_1);
+		container.add(position_3_1);
 		
 		position_3_2.setBackground(Color.LIGHT_GRAY);
 		position_3_2.setBounds(136, 235, 100, 100);
 		position_3_2.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_3_2);
+		container.add(position_3_2);
 		
 		position_3_3.setBackground(Color.LIGHT_GRAY);
 		position_3_3.setBounds(254, 235, 100, 100);
 		position_3_3.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_3_3);
+		container.add(position_3_3);
 		
 		position_3_4.setBackground(Color.LIGHT_GRAY);
 		position_3_4.setBounds(372, 235, 100, 100);
 		position_3_4.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_3_4);
+		container.add(position_3_4);
 		
 		position_4_1.setBackground(Color.BLUE);
 		position_4_1.setBounds(18, 347, 100, 100);
 		position_4_1.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_4_1);
+		container.add(position_4_1);
 		
 		position_4_2.setBackground(Color.RED);
 		position_4_2.setBounds(136, 347, 100, 100);
 		position_4_2.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_4_2);
+		container.add(position_4_2);
 		
 		position_4_3.setBackground(Color.BLUE);
 		position_4_3.setBounds(254, 347, 100, 100);
 		position_4_3.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_4_3);
+		container.add(position_4_3);
 		
 		position_4_4.setBackground(Color.RED);
 		position_4_4.setBounds(372, 347, 100, 100);
 		position_4_4.setBorder(BORDER_COMPOUND);
-		contentPane.add(position_4_4);
+		container.add(position_4_4);
 
 		panel.setBounds(12, 475, 467, 39);
 		panel.setLayout(null);
-		panel.add(btnComoJogar);
-		contentPane.add(panel);
+		panel.add(btn_como_jogar);
+		container.add(panel);
 
-		btnComoJogar.setBounds(165, 5, 122, 29);
+		btn_como_jogar.setBounds(165, 5, 122, 29);
 		
-		button_desistir_partida.setBounds(297, 5, 159, 29);
-		panel.add(button_desistir_partida);
+		btn_desistir_partida.setBounds(297, 5, 159, 29);
+		panel.add(btn_desistir_partida);
 
-		btnReiniciarPartida.setBounds(10, 5, 145, 29);
-		panel.add(btnReiniciarPartida);
+		btn_reiniciar_partida.setBounds(10, 5, 145, 29);
+		panel.add(btn_reiniciar_partida);
 		
 		
 	}
@@ -264,7 +261,7 @@ public class Game extends JFrame {
 		position_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_1_1.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_1_1.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_1_1);
 			}
 		});
@@ -272,7 +269,7 @@ public class Game extends JFrame {
 		position_1_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_1_2.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_1_2.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_1_2);
 			}
 		});
@@ -280,7 +277,7 @@ public class Game extends JFrame {
 		position_1_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_1_3.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_1_3.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_1_3);
 			}
 		});
@@ -288,7 +285,7 @@ public class Game extends JFrame {
 		position_1_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_1_4.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_1_4.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_1_4);
 			}
 		});
@@ -296,7 +293,7 @@ public class Game extends JFrame {
 		position_2_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_2_1.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_2_1.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_2_1);
 			}
 		});
@@ -304,7 +301,7 @@ public class Game extends JFrame {
 		position_2_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_2_2.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_2_2.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_2_2);
 			}
 		});
@@ -312,7 +309,7 @@ public class Game extends JFrame {
 		position_2_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_2_3.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_2_3.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_2_3);
 			}
 		});
@@ -320,7 +317,7 @@ public class Game extends JFrame {
 		position_2_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_2_4.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_2_4.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_2_4);
 			}
 		});
@@ -328,7 +325,7 @@ public class Game extends JFrame {
 		position_3_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_3_1.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_3_1.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_3_1);
 			}
 		});
@@ -336,7 +333,7 @@ public class Game extends JFrame {
 		position_3_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_3_2.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_3_2.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_3_2);
 			}
 		});
@@ -344,7 +341,7 @@ public class Game extends JFrame {
 		position_3_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_3_3.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_3_3.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_3_3);
 			}
 		});
@@ -352,7 +349,7 @@ public class Game extends JFrame {
 		position_3_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_3_4.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_3_4.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_3_4);
 			}
 		});
@@ -360,7 +357,7 @@ public class Game extends JFrame {
 		position_4_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_4_1.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_4_1.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_4_1);
 			}
 		});
@@ -368,7 +365,7 @@ public class Game extends JFrame {
 		position_4_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_4_2.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_4_2.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_4_2);
 			}
 		});
@@ -376,7 +373,7 @@ public class Game extends JFrame {
 		position_4_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_4_3.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_4_3.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_4_3);
 			}
 		});
@@ -384,15 +381,32 @@ public class Game extends JFrame {
 		position_4_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Type "+ position_4_4.getType() + " / countCicks = " + countClicks + "\n");
+				System.out.println("Type "+ position_4_4.getType() + " / countCicks = " + contarCliques + "\n");
 				lance(position_4_4);
 			}
 		});
 		
-		button_desistir_partida.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btn_desistir_partida.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controle.desistirPartida();
 			}
 		});
+		
+		btn_reiniciar_partida.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controle.reiniciarPartida();
+			}
+		});
+		
+		btn_como_jogar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controle.comoJogar();
+			}
+		});
+	
 	}
 	
 	public static Image loadImage(String name) {
@@ -404,19 +418,19 @@ public class Game extends JFrame {
 		
 		if(position.getType() != -1){
 			prePos = position;
-			countClicks++;
+			contarCliques++;
 			
-			if(prePos == position && countClicks == 2){
-				countClicks--;
+			if(prePos == position && contarCliques == 2){
+				contarCliques--;
 			}
 		}
 		
-		if(countClicks == 1 && position.getType() == -1){
-			countClicks ++;
+		if(contarCliques == 1 && position.getType() == -1){
+			contarCliques ++;
 		}
 		
-		if(countClicks == 2){
-			countClicks = 0;
+		if(contarCliques == 2){
+			contarCliques = 0;
 			
 			if(controle.ehMovimentoValido(prePos, position)){
 				controle.setPosicoesGame(getPosicoes());
@@ -424,7 +438,6 @@ public class Game extends JFrame {
 		}
 	}
 	
-
 	public Posicao[] getPosicoes(){
 		
 		Posicao [] posicoes = new Posicao[16];
@@ -447,5 +460,13 @@ public class Game extends JFrame {
 		posicoes[15] = position_4_4;
 		
 		return posicoes;
+	}
+	
+	private void setContainerJogo() {
+		controle.setContainerJogo(container);
+	}
+	
+	public void dismiss(){
+		dispose();
 	}
 }

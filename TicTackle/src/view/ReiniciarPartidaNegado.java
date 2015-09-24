@@ -13,21 +13,17 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class AceitarReiniciar extends JDialog {
+public class ReiniciarPartidaNegado extends JDialog {
 
 	private final JPanel container = new JPanel();
 	private JButton okButton;
-	private JButton cancelButton;
-	private String jogadorVermelho;
-	private String jogadorAzul;
+	private JLabel messageRestart;
 
 	/**
 	 * Create the dialog.
 	 */
-	public AceitarReiniciar(String jogadorVermelho, String jogadorAzul) {
-		this.jogadorVermelho = jogadorVermelho;
-		this.jogadorAzul = jogadorAzul;
-		
+	public ReiniciarPartidaNegado() {
+	
 		setPanel();
 		setListeners();
 	}
@@ -42,35 +38,25 @@ public class AceitarReiniciar extends JDialog {
 		getContentPane().add(container, BorderLayout.CENTER);
 		container.setLayout(null);
 
-		JLabel lblOOpenenteDeseja = new JLabel(
-				"O openente deseja reiniciar a partida!");
-		lblOOpenenteDeseja.setBounds(63, 63, 429, 25);
-		lblOOpenenteDeseja.setFont(new Font("Lithos Pro", Font.PLAIN, 20));
-		container.add(lblOOpenenteDeseja);
+		messageRestart = new JLabel(
+				"O oponente não deseja reiniciar a partida.");
+		messageRestart.setBounds(63, 63, 429, 25);
+		messageRestart.setFont(new Font("Lithos Pro", Font.PLAIN, 20));
+		container.add(messageRestart);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		okButton = new JButton("SIM");
-		okButton.setActionCommand("SIM");
+		okButton = new JButton("OK");
+		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
-
-		cancelButton = new JButton("NÃO");
-		cancelButton.setActionCommand("NÃO");
-		buttonPane.add(cancelButton);
 	}
 
 	public void setListeners() {
-		okButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				new Reiniciar(jogadorVermelho, jogadorAzul);
-			}
-		});
 		
-		cancelButton.addMouseListener(new MouseAdapter() {
+		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();			

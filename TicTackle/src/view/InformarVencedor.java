@@ -24,20 +24,13 @@ public class InformarVencedor extends JDialog {
 			.createCompoundBorder(RAISED_LEVEL, LOWERED_LEVEL);
 	private static String name;
 
-	public static void main(String[] args) {
-		try {
-			InformarVencedor dialog = new InformarVencedor(name);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	/**
 	 * Create the dialog.
 	 */
 	public InformarVencedor(String name) {
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.setVisible(true);
 		this.name = name;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());

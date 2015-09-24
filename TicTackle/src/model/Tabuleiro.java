@@ -2,15 +2,25 @@ package model;
 
 import java.awt.Color;
 
+import javax.swing.JPanel;
+
+import view.ComecarPartida;
+import view.ComoJogar;
+import view.DesistirPartida;
+import view.PartidaCancelada;
+import view.Reiniciar;
+import view.ReiniciarPartidaNegado;
+
 public class Tabuleiro{
 	
 	private Jogador jogadorAzul;
 	private Jogador jogadorVermelho;
-	private ExisteVencedor searchWinner;
+	private ExisteVencedor existeVencedor;
 	private Posicao [] posicoes;
 	private int [] estado;
 	private char[][] matriz;
-	private String[] words;
+	private String[] combinacoes;
+	private JPanel container;
 	
 	// 0 == blue
 	// 1 == red
@@ -23,12 +33,12 @@ public class Tabuleiro{
 		jogadorAzul.setDaVez(true);
 		jogadorVermelho.setDaVez(true);
 		
-		words = new String[2];
+		combinacoes = new String[2];
 		
 		matriz = new char[4][4];
 		
-		words[0] = "000";
-		words[1] = "111";
+		combinacoes[0] = "000";
+		combinacoes[1] = "111";
 	}
 	
 	public boolean verificaMovimento(Posicao prePos, Posicao posPos){
@@ -98,8 +108,8 @@ public class Tabuleiro{
 	public boolean ehVencedor(int i){
 	
 		inicializarMatriz();
-		searchWinner = new ExisteVencedor(matriz, words[i]);
-		return searchWinner.solve();
+		existeVencedor = new ExisteVencedor(matriz, combinacoes[i]);
+		return existeVencedor.solve();
 	}
 	
 	
@@ -153,7 +163,7 @@ public class Tabuleiro{
 			matriz[1][3] = Integer.toString(posicoes[7].getType()).charAt(0);
 			matriz[2][0] = Integer.toString(posicoes[8].getType()).charAt(0);
 			matriz[2][1] = Integer.toString(posicoes[9].getType()).charAt(0);
-			matriz[2][2] = Integer.toString(posicoes[10].getType()).charAt(0);;
+			matriz[2][2] = Integer.toString(posicoes[10].getType()).charAt(0);
 			matriz[2][3] = Integer.toString(posicoes[11].getType()).charAt(0);
 			matriz[3][0] = Integer.toString(posicoes[12].getType()).charAt(0);
 			matriz[3][1] = Integer.toString(posicoes[13].getType()).charAt(0);
@@ -167,5 +177,38 @@ public class Tabuleiro{
 		this.posicoes = posicoes;
 	}
 
+	public void desistirPartida(){
+		// netGames envia requisicao para mostrar popup de cancelamento e encerra a partida
+		new DesistirPartida();
+	}
 	
+	public void recebeCancelamento(){
+		new PartidaCancelada();
+		container.setVisible(false); // achar outra forma de fazer...
+	}
+	
+	public void reiniciarPartida(){
+		//envia requisicao de reinicio
+		
+		// se aceita
+		new Reiniciar(jogadorAzul.getName(), jogadorAzul.getName());
+		
+		// se nao aceita
+		
+		new ReiniciarPartidaNegado();
+		
+	}
+
+	public void comoJogar(){
+		new ComoJogar();
+	}	
+	
+	public void setInicioJogo(){
+		// recebe mensagem do servidor para o jogo ser comecado..
+		new ComecarPartida();
+	}
+	
+	public void setContainerJogo(JPanel container){
+		this.container = container;
+	}	
 }

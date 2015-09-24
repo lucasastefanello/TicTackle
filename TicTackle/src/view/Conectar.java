@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.print.attribute.standard.Finishings;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,6 +16,8 @@ import javax.swing.JTextField;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Conectar extends JDialog {
 
@@ -26,15 +29,16 @@ public class Conectar extends JDialog {
 			.createLoweredBevelBorder();
 	private final CompoundBorder BORDER_COMPOUND = BorderFactory
 			.createCompoundBorder(RAISED_LEVEL, LOWERED_LEVEL);
+	private JButton okButton;
+	private JButton cancelButton;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			Conectar dialog = new Conectar();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
+			new Conectar();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -44,56 +48,83 @@ public class Conectar extends JDialog {
 	 * Create the dialog.
 	 */
 	public Conectar() {
+		
+		setPanel();
+		setListeners();
+		
+	}
+
+	public void setPanel(){
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.setVisible(true);
+
 		setBounds(100, 100, 533, 380);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setBorder(BORDER_COMPOUND);
 		contentPanel.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Nome:");
 		lblNewLabel.setBounds(236, 161, 61, 16);
 		contentPanel.add(lblNewLabel);
-		
+
 		textField_nome = new JTextField();
 		textField_nome.setBounds(127, 189, 278, 28);
 		contentPanel.add(textField_nome);
 		textField_nome.setColumns(10);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Server:");
 		lblNewLabel_1.setBounds(236, 241, 61, 16);
 		contentPanel.add(lblNewLabel_1);
-		
+
 		textField = new JTextField();
 		textField.setBounds(127, 262, 278, 28);
 		contentPanel.add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblTicTackle = new JLabel("Tic Tackle");
 		lblTicTackle.setForeground(new Color(0, 204, 102));
 		lblTicTackle.setFont(new Font("Lithos Pro", Font.PLAIN, 40));
 		lblTicTackle.setBounds(121, 20, 291, 57);
 		contentPanel.add(lblTicTackle);
-		
+
 		JLabel lblConectar = new JLabel("Conectar");
 		lblConectar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblConectar.setBounds(224, 96, 85, 28);
 		contentPanel.add(lblConectar);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+
+		JPanel buttonPane = new JPanel();
+		buttonPane.setBounds(6, 313, 521, 39);
+		contentPanel.add(buttonPane);
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+		okButton = new JButton("OK");
+		
+		okButton.setActionCommand("OK");
+		buttonPane.add(okButton);
+		getRootPane().setDefaultButton(okButton);
+
+		cancelButton = new JButton("Cancel");
+		cancelButton.setActionCommand("Cancel");
+		buttonPane.add(cancelButton);
+	}
+	
+	public void setListeners(){
+		
+		okButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// netGames send the request to the server...
 			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+		});
+		
+		cancelButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
 			}
-		}
+		});
+		
 	}
 }
