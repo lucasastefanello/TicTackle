@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
+import controller.Controle;
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,13 +20,15 @@ public class ComecarPartida extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton okButton;
 	private JButton cancelButton;
+	private Controle mControle;
 
 	/**
 	 * Create the dialog.
 	 */
-	public ComecarPartida() {
+	public ComecarPartida(Controle controle) {
 		setPanel();
 		setListeners();
+		mControle = controle;
 	}
 	
 	public void setPanel(){
@@ -59,18 +64,16 @@ public class ComecarPartida extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new ImagemTabuleiro(); // talvez passando algo como parametro? jogadores?
+				mControle.criarJogo();
 			}
 		});
 		
 		cancelButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Conectar(); // reinicia todo o processo
+				System.exit(0);
 			}
 		});
-		
-		
 	}
 
 }

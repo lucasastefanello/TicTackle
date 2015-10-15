@@ -8,24 +8,36 @@ import br.ufsc.inf.leobr.cliente.exception.JahConectadoException;
 import br.ufsc.inf.leobr.cliente.exception.NaoConectadoException;
 import br.ufsc.inf.leobr.cliente.exception.NaoJogandoException;
 import br.ufsc.inf.leobr.cliente.exception.NaoPossivelConectarException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
+
+import controller.Controle;
 
 public class AtorNetGames implements OuvidorProxy {
 
-    Proxy interno;
-    boolean statusConexao;
+    private Proxy mProxy;
+    private boolean mStatusConexao;
+    private Tabuleiro mTabuleiro;
+    private Controle mControle;
+    
 
     public AtorNetGames() {
-        interno = Proxy.getInstance();
-        interno.addOuvinte(this);
+        mProxy = Proxy.getInstance();
+        mProxy.addOuvinte(this);
+        mTabuleiro = new Tabuleiro();
+    }
+    
+    public AtorNetGames(Controle controle){
+    	mControle = controle;
     }
 
     public int conectar(String enderecoServ, String nomeJogador) {
         try {
-            interno.conectar(enderecoServ, nomeJogador);
-            this.statusConexao = true;
+            mProxy.conectar(enderecoServ, nomeJogador);
+            this.mStatusConexao = true;
             //controlador.setVez();
              JOptionPane.showMessageDialog(null, "Conexão estabelecida.");
             return 200;
@@ -46,7 +58,7 @@ public class AtorNetGames implements OuvidorProxy {
     
     public void reiniciarPartida() throws NaoConectadoException{
         try {
-            interno.reiniciarPartida();
+            mProxy.reiniciarPartida();
         } catch (NaoJogandoException ex) {
             Logger.getLogger(AtorNetGames.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,7 +66,7 @@ public class AtorNetGames implements OuvidorProxy {
     
     public void enviarJogada(Jogada lance) {
         try {
-            interno.enviaJogada(lance);
+            mProxy.enviaJogada(lance);
 
         } catch (NaoJogandoException ex) {
 
@@ -65,7 +77,7 @@ public class AtorNetGames implements OuvidorProxy {
         
          try {
          JOptionPane.showMessageDialog(null, "Obrigado por jogar nosso jogo :)");
-         interno.finalizarPartida();
+         mProxy.finalizarPartida();
          System.exit(0);
 
          } catch (NaoConectadoException ex) {
@@ -81,7 +93,7 @@ public class AtorNetGames implements OuvidorProxy {
 
     public int iniciarPartida() {
         try {
-            interno.iniciarPartida(new Integer(2));
+            mProxy.iniciarPartida(new Integer(2));
             JOptionPane.showMessageDialog(null, "Conectado, \nAguarde outro jogador entrar na sala");
             //controlador.setVez();
             return 200;
@@ -94,15 +106,15 @@ public class AtorNetGames implements OuvidorProxy {
 
     public void desconectar() {
         try {
-            interno.desconectar();
+            mProxy.desconectar();
 
         } catch (NaoConectadoException e) {
         }
     }
 
     public String getAdversario(String idUsuario) {
-        String aux1 = interno.obterNomeAdversario(new Integer(1));
-        String aux2 = interno.obterNomeAdversario(new Integer(2));
+        String aux1 = mProxy.obterNomeAdversario(new Integer(1));
+        String aux2 = mProxy.obterNomeAdversario(new Integer(2));
 
         if (aux1.equals(idUsuario)) {
             return aux2;
@@ -141,6 +153,6 @@ public class AtorNetGames implements OuvidorProxy {
     }
 
     public boolean temAdversario() {
-        return !this.interno.obterNomeAdversarios().isEmpty();
+        return !this.mProxy.obterNomeAdversarios().isEmpty();
     }
 }

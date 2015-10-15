@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
+import controller.Controle;
 import view.ComecarPartida;
 import view.ComoJogar;
 import view.DesistirPartida;
@@ -21,12 +22,16 @@ public class Tabuleiro{
 	private char[][] matriz;
 	private String[] combinacoes;
 	private JPanel container;
-	
+	private AtorNetGames mAtorNetGames;
+	private Controle mControle;
 	// 0 == blue
 	// 1 == red
 	
-	public Tabuleiro(){
-				
+	public Tabuleiro(AtorNetGames atorNetGames, Controle controle){
+		
+		mAtorNetGames = atorNetGames;
+		mControle = controle;
+	
 		jogadorAzul = new Jogador("jogadorAzul", "azul");
 		jogadorVermelho = new Jogador("jogadorVermelho", "vermelho");
 		
@@ -41,7 +46,11 @@ public class Tabuleiro{
 		combinacoes[1] = "111";
 	}
 	
-	public boolean verificaMovimento(Posicao prePos, Posicao posPos){
+	public Tabuleiro(){
+		
+	}
+	
+	public boolean realizarLanceTabuleiro(Posicao prePos, Posicao posPos){
 		
 		if(posPos.getType() == -1 && (prePos.getType() == 1 || prePos.getType() == 0)){
 			
@@ -173,7 +182,7 @@ public class Tabuleiro{
 	}
 	
 	
-	public void recebePosicoes(Posicao[] posicoes){
+	public void getPosicoes(Posicao[] posicoes){
 		this.posicoes = posicoes;
 	}
 
@@ -184,7 +193,7 @@ public class Tabuleiro{
 	
 	public void recebeCancelamento(){
 		new PartidaCancelada();
-		container.setVisible(false); // achar outra forma de fazer...
+		mControle.disposeInterface();
 	}
 	
 	public void reiniciarPartida(){
@@ -196,19 +205,5 @@ public class Tabuleiro{
 		// se nao aceita
 		
 		new ReiniciarPartidaNegado();
-		
-	}
-
-	public void comoJogar(){
-		new ComoJogar();
-	}	
-	
-	public void setInicioJogo(){
-		// recebe mensagem do servidor para o jogo ser comecado..
-		new ComecarPartida();
-	}
-	
-	public void setContainerJogo(JPanel container){
-		this.container = container;
 	}	
 }

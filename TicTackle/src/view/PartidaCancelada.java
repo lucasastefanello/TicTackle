@@ -56,7 +56,7 @@ public class PartidaCancelada extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Conectar();
+
 			}
 		});
 	}

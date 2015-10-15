@@ -14,6 +14,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import controller.Controle;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -23,7 +25,7 @@ public class Conectar extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField_nome;
-	private JTextField textField;
+	private JTextField textFieldServer;
 	private final Border RAISED_LEVEL = BorderFactory.createRaisedBevelBorder();
 	private final Border LOWERED_LEVEL = BorderFactory
 			.createLoweredBevelBorder();
@@ -31,27 +33,15 @@ public class Conectar extends JDialog {
 			.createCompoundBorder(RAISED_LEVEL, LOWERED_LEVEL);
 	private JButton okButton;
 	private JButton cancelButton;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			new Conectar();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private Controle mControle;
 
 	/**
 	 * Create the dialog.
 	 */
-	public Conectar() {
-		
+	public Conectar(Controle controle) {
+		mControle = controle;
 		setPanel();
 		setListeners();
-		
 	}
 
 	public void setPanel(){
@@ -78,10 +68,10 @@ public class Conectar extends JDialog {
 		lblNewLabel_1.setBounds(236, 241, 61, 16);
 		contentPanel.add(lblNewLabel_1);
 
-		textField = new JTextField();
-		textField.setBounds(127, 262, 278, 28);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		textFieldServer = new JTextField();
+		textFieldServer.setBounds(127, 262, 278, 28);
+		contentPanel.add(textFieldServer);
+		textFieldServer.setColumns(10);
 
 		JLabel lblTicTackle = new JLabel("Tic Tackle");
 		lblTicTackle.setForeground(new Color(0, 204, 102));
@@ -119,7 +109,7 @@ public class Conectar extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// netGames send the request to the server...
+				mControle.conectarComServidor(textFieldServer.getText(), textField_nome.getText());
 			}
 		});
 		
@@ -129,5 +119,13 @@ public class Conectar extends JDialog {
 				System.exit(0);
 			}
 		});
+	}
+	
+	public void showWait(){
+		
+	}
+	
+	public void showError(){
+		
 	}
 }

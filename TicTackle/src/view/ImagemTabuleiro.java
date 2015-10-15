@@ -59,21 +59,21 @@ public class ImagemTabuleiro extends JFrame {
 	private JButton btn_desistir_partida;
 	private JButton btn_reiniciar_partida;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ImagemTabuleiro frame = new ImagemTabuleiro();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ImagemTabuleiro frame = new ImagemTabuleiro();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -82,8 +82,7 @@ public class ImagemTabuleiro extends JFrame {
 		initialize();
 		setProperties();
 		addListeners();
-		setContainerJogo();
-		
+		setVisible(true);
 	}
 
 	public void initialize(){
@@ -432,8 +431,8 @@ public class ImagemTabuleiro extends JFrame {
 		if(contarCliques == 2){
 			contarCliques = 0;
 			
-			if(controle.ehMovimentoValido(prePos, position)){
-				controle.setPosicoesGame(getPosicoes());
+			if(controle.realizarLanceControle(prePos, position)){
+				controle.getPosicoesGame(getPosicoes());
 			}
 		}
 	}
@@ -460,10 +459,6 @@ public class ImagemTabuleiro extends JFrame {
 		posicoes[15] = position_4_4;
 		
 		return posicoes;
-	}
-	
-	private void setContainerJogo() {
-		controle.setContainerJogo(container);
 	}
 	
 	public void dismiss(){

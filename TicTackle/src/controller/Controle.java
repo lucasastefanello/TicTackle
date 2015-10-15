@@ -1,41 +1,68 @@
 package controller;
 
-import javax.swing.JPanel;
-
+import view.ComecarPartida;
+import view.ComoJogar;
+import view.Conectar;
 import view.ImagemTabuleiro;
+import model.AtorJogador;
+import model.AtorNetGames;
 import model.Posicao;
 import model.Tabuleiro;
 
 public class Controle {
 	
-	protected Tabuleiro tabuleiro;
-	protected ImagemTabuleiro game;
+	private Tabuleiro mTabuleiro;
+	private ImagemTabuleiro mImagemTabuleiro;
+	private AtorNetGames mAtorNetGames;
+	private AtorJogador mAtorJogador;
+	private Conectar mConectar;
 
 	public Controle(){
-		tabuleiro = new Tabuleiro();
+		mAtorNetGames = new AtorNetGames();
+		mConectar = new Conectar(this);
 	}
 
-	public boolean ehMovimentoValido(Posicao prePos, Posicao posPos){
-		return tabuleiro.verificaMovimento(prePos, posPos);
+	public boolean realizarLanceControle(Posicao prePos, Posicao posPos){
+		return mAtorJogador.realizarLanceJogador(prePos, posPos);
 	}
 	
-	public void setPosicoesGame(Posicao [] posicoes){
-		tabuleiro.recebePosicoes(posicoes);
+	public void getPosicoesGame(Posicao [] posicoes){
+		mTabuleiro.getPosicoes(posicoes);
 	}
 	
 	public void desistirPartida(){
-		tabuleiro.desistirPartida();
+		mAtorJogador.desistirPartida();
 	}
 	
 	public void reiniciarPartida(){
-		tabuleiro.reiniciarPartida();
+		mAtorJogador.reiniciarPartida();
 	}
 
 	public void comoJogar(){
-		tabuleiro.comoJogar();
+		new ComoJogar();
 	}	
 	
-	public void setContainerJogo(JPanel container){
-		tabuleiro.setContainerJogo(container);
+	public void disposeInterface(){
+		mImagemTabuleiro.dismiss();
+	}
+	
+	public void conectarComServidor(String server, String nomeJogador){
+		int resultado = mAtorNetGames.conectar(server, nomeJogador);
+		
+		switch (resultado) {
+		case 200:
+			new ComecarPartida(this);
+			break;
+			
+		default:
+			mConectar.showError();
+			break;
+		}
+	}
+	
+	public void criarJogo(){
+		mImagemTabuleiro = new ImagemTabuleiro();
+		mTabuleiro = new Tabuleiro(mAtorNetGames, this);
+		mAtorJogador = new AtorJogador();
 	}
 }
