@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Game extends JFrame {
+public class ImagemTabuleiro extends JFrame {
 
 	/**
 	 * 
@@ -66,7 +66,7 @@ public class Game extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Game frame = new Game();
+					ImagemTabuleiro frame = new ImagemTabuleiro();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -78,7 +78,7 @@ public class Game extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Game() {
+	public ImagemTabuleiro() {
 		initialize();
 		setProperties();
 		addListeners();
@@ -262,7 +262,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_1_1.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_1_1);
+				solicitaJogada(position_1_1);
 			}
 		});
 		
@@ -270,7 +270,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_1_2.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_1_2);
+				solicitaJogada(position_1_2);
 			}
 		});
 		
@@ -278,7 +278,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_1_3.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_1_3);
+				solicitaJogada(position_1_3);
 			}
 		});
 		
@@ -286,7 +286,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_1_4.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_1_4);
+				solicitaJogada(position_1_4);
 			}
 		});
 		
@@ -294,7 +294,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_2_1.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_2_1);
+				solicitaJogada(position_2_1);
 			}
 		});
 		
@@ -302,7 +302,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_2_2.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_2_2);
+				solicitaJogada(position_2_2);
 			}
 		});
 		
@@ -310,7 +310,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_2_3.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_2_3);
+				solicitaJogada(position_2_3);
 			}
 		});
 		
@@ -318,7 +318,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_2_4.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_2_4);
+				solicitaJogada(position_2_4);
 			}
 		});
 		
@@ -326,7 +326,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_3_1.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_3_1);
+				solicitaJogada(position_3_1);
 			}
 		});
 		
@@ -334,7 +334,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_3_2.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_3_2);
+				solicitaJogada(position_3_2);
 			}
 		});
 		
@@ -342,7 +342,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_3_3.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_3_3);
+				solicitaJogada(position_3_3);
 			}
 		});
 		
@@ -350,7 +350,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_3_4.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_3_4);
+				solicitaJogada(position_3_4);
 			}
 		});
 		
@@ -358,7 +358,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_4_1.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_4_1);
+				solicitaJogada(position_4_1);
 			}
 		});
 		
@@ -366,7 +366,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_4_2.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_4_2);
+				solicitaJogada(position_4_2);
 			}
 		});
 		
@@ -374,7 +374,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_4_3.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_4_3);
+				solicitaJogada(position_4_3);
 			}
 		});
 		
@@ -382,7 +382,7 @@ public class Game extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Type "+ position_4_4.getType() + " / countCicks = " + contarCliques + "\n");
-				lance(position_4_4);
+				solicitaJogada(position_4_4);
 			}
 		});
 		
@@ -414,7 +414,7 @@ public class Game extends JFrame {
 		return new ImageIcon(filename).getImage();
 	}
 	
-	public void lance(Posicao position){
+	public void solicitaJogada(Posicao position){
 		
 		if(position.getType() != -1){
 			prePos = position;

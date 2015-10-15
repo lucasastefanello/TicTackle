@@ -15,7 +15,7 @@ public class Tabuleiro{
 	
 	private Jogador jogadorAzul;
 	private Jogador jogadorVermelho;
-	private ExisteVencedor existeVencedor;
+	private VerificaVencedor existeVencedor;
 	private Posicao [] posicoes;
 	private int [] estado;
 	private char[][] matriz;
@@ -108,7 +108,7 @@ public class Tabuleiro{
 	public boolean ehVencedor(int i){
 	
 		inicializarMatriz();
-		existeVencedor = new ExisteVencedor(matriz, combinacoes[i]);
+		existeVencedor = new VerificaVencedor(matriz, combinacoes[i]);
 		return existeVencedor.solve();
 	}
 	

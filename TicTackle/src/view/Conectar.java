@@ -86,7 +86,7 @@ public class Conectar extends JDialog {
 		JLabel lblTicTackle = new JLabel("Tic Tackle");
 		lblTicTackle.setForeground(new Color(0, 204, 102));
 		lblTicTackle.setFont(new Font("Lithos Pro", Font.PLAIN, 40));
-		lblTicTackle.setBounds(121, 20, 291, 57);
+		lblTicTackle.setBounds(144, 27, 235, 57);
 		contentPanel.add(lblTicTackle);
 
 		JLabel lblConectar = new JLabel("Conectar");
@@ -97,17 +97,21 @@ public class Conectar extends JDialog {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBounds(6, 313, 521, 39);
 		contentPanel.add(buttonPane);
-		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+				buttonPane.setLayout(null);
+		
+				cancelButton = new JButton("Cancel");
+				cancelButton.setBounds(159, 5, 86, 29);
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
 
 		okButton = new JButton("OK");
+		okButton.setBounds(279, 5, 75, 29);
 		
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
-
-		cancelButton = new JButton("Cancel");
-		cancelButton.setActionCommand("Cancel");
-		buttonPane.add(cancelButton);
+		
+		repaint();
 	}
 	
 	public void setListeners(){
@@ -125,6 +129,5 @@ public class Conectar extends JDialog {
 				System.exit(0);
 			}
 		});
-		
 	}
 }

@@ -2,14 +2,14 @@ package controller;
 
 import javax.swing.JPanel;
 
-import view.Game;
+import view.ImagemTabuleiro;
 import model.Posicao;
 import model.Tabuleiro;
 
 public class Controle {
 	
 	protected Tabuleiro tabuleiro;
-	protected Game game;
+	protected ImagemTabuleiro game;
 
 	public Controle(){
 		tabuleiro = new Tabuleiro();

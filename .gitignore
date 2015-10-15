@@ -1,4 +1,6 @@
 #IntelliJ Files.. 
-
+*.recommenders
+*.metadata
 *.idea
 *.iml
+.recommenders/index/http___download_eclipse_org_recommenders_models_luna_/_6.fdx

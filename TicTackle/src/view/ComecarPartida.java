@@ -59,7 +59,7 @@ public class ComecarPartida extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Game(); // talvez passando algo como parametro? jogadores?
+				new ImagemTabuleiro(); // talvez passando algo como parametro? jogadores?
 			}
 		});
 		
