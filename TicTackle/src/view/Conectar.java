@@ -1,9 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
-import javax.print.attribute.standard.Finishings;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;

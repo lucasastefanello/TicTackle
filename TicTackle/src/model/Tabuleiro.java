@@ -2,11 +2,7 @@ package model;
 
 import java.awt.Color;
 
-import javax.swing.JPanel;
-
 import controller.Controle;
-import view.ComecarPartida;
-import view.ComoJogar;
 import view.DesistirPartida;
 import view.PartidaCancelada;
 import view.Reiniciar;
@@ -21,7 +17,6 @@ public class Tabuleiro{
 	private int [] estado;
 	private char[][] matriz;
 	private String[] combinacoes;
-	private JPanel container;
 	private AtorNetGames mAtorNetGames;
 	private Controle mControle;
 	// 0 == blue
@@ -52,6 +47,32 @@ public class Tabuleiro{
 	
 	public boolean realizarLanceTabuleiro(Posicao prePos, Posicao posPos){
 		
+		if(ehLanceValido(prePos, posPos)) {
+					
+			if(jogadorAzul.isDaVez() && prePos.getType() == 0){
+				trocarPosicao(prePos, posPos);
+				jogadorAzul.setDaVez(false);
+				jogadorVermelho.setDaVez(true);
+				if(ehVencedor(0)){
+					
+				}
+			}
+
+			if(jogadorVermelho.isDaVez() && prePos.getType() == 1){
+				trocarPosicao(prePos, posPos);
+				jogadorAzul.setDaVez(true);
+				jogadorVermelho.setDaVez(false);
+				if(ehVencedor(1)){
+					
+				}
+			}
+			return true;
+		}
+		return false;
+	}	
+	
+	public boolean ehLanceValido(Posicao prePos, Posicao posPos){
+		
 		if(posPos.getType() == -1 && (prePos.getType() == 1 || prePos.getType() == 0)){
 			
 			boolean diferenceColunm = Math.abs(prePos.getColumn() - posPos.getColumn()) == 1;
@@ -62,31 +83,13 @@ public class Tabuleiro{
 			
 			if(isSameColunm || isSameRow){	
 				if(diferenceColunm || diferenceRow){
-					
-					if(jogadorAzul.isDaVez() && prePos.getType() == 0){
-						trocarPosicao(prePos, posPos);
-						jogadorAzul.setDaVez(false);
-						jogadorVermelho.setDaVez(true);
-						if(ehVencedor(0)){
-							
-						}
-					}
-					
-					if(jogadorVermelho.isDaVez() && prePos.getType() == 1){
-						trocarPosicao(prePos, posPos);
-						jogadorAzul.setDaVez(true);
-						jogadorVermelho.setDaVez(false);
-						if(ehVencedor(1)){
-							
-						}
-					}
 					return true;
 				}
 			}
 		}
 		
 		return false;
-	}	
+	}
 	
 	public void trocarPosicao(Posicao prePos, Posicao posPos){
 		int tempTypePre = prePos.getType();
@@ -113,6 +116,8 @@ public class Tabuleiro{
 		}
 		System.gc();
 	}
+	
+	
 	
 	public boolean ehVencedor(int i){
 	
