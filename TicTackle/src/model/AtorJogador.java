@@ -4,8 +4,8 @@ public class AtorJogador {
 
 	private Tabuleiro mTabuleiro;
 	
-	public AtorJogador(){
-		mTabuleiro = new Tabuleiro();
+	public AtorJogador(Tabuleiro tabuleiro){
+		mTabuleiro = tabuleiro;
 	}
 	
 	public boolean realizarLanceJogador(Posicao prePos, Posicao posPos){

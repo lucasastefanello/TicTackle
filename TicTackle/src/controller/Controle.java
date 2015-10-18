@@ -51,6 +51,7 @@ public class Controle {
 		
 		switch (resultado) {
 		case 200:
+			mConectar.dismiss();
 			new ComecarPartida(this);
 			break;
 			
@@ -61,8 +62,8 @@ public class Controle {
 	}
 	
 	public void criarJogo(){
-		mImagemTabuleiro = new ImagemTabuleiro();
+		mImagemTabuleiro = new ImagemTabuleiro(this);
 		mTabuleiro = new Tabuleiro(mAtorNetGames, this);
-		mAtorJogador = new AtorJogador();
+		mAtorJogador = new AtorJogador(mTabuleiro);
 	}
 }

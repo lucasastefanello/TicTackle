@@ -39,21 +39,20 @@ public class AtorNetGames implements OuvidorProxy {
             mProxy.conectar(enderecoServ, nomeJogador);
             this.mStatusConexao = true;
             //controlador.setVez();
-             JOptionPane.showMessageDialog(null, "Conexão estabelecida.");
+             //JOptionPane.showMessageDialog(null, "Conexão estabelecida.");
             return 200;
         } catch (JahConectadoException ex) {
-            JOptionPane.showMessageDialog(null, "Já existe uma conexão estabelecida.");
+            //JOptionPane.showMessageDialog(null, "Já existe uma conexão estabelecida.");
             return 201;
 
         } catch (NaoPossivelConectarException ex) {
-            JOptionPane.showMessageDialog(null, "Impossível conectar. \nTente reiniciar o servidor.");
+            //JOptionPane.showMessageDialog(null, "Impossível conectar. \nTente reiniciar o servidor.");
             return 404;
 
         } catch (ArquivoMultiplayerException ex) {
-            JOptionPane.showMessageDialog(null, "Nenhum arquivo de propriedades foi encontrado.");
+            //JOptionPane.showMessageDialog(null, "Nenhum arquivo de propriedades foi encontrado.");
             return 500;
         }
-
     }
     
     public void reiniciarPartida() throws NaoConectadoException{

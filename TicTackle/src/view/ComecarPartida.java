@@ -40,10 +40,10 @@ public class ComecarPartida extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblOOpenenteDeseja = new JLabel("Tudo pronto! Vamos começar?");
-		lblOOpenenteDeseja.setBounds(105, 63, 345, 25);
-		lblOOpenenteDeseja.setFont(new Font("Lithos Pro", Font.PLAIN, 20));
-		contentPanel.add(lblOOpenenteDeseja);
+		JLabel ok = new JLabel("Tudo pronto! Vamos começar?");
+		ok.setBounds(105, 63, 345, 25);
+		ok.setFont(new Font("Lithos Pro", Font.PLAIN, 20));
+		contentPanel.add(ok);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -64,6 +64,7 @@ public class ComecarPartida extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				mControle.criarJogo();
 			}
 		});

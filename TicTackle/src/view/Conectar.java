@@ -89,10 +89,10 @@ public class Conectar extends JDialog {
 		contentPanel.add(buttonPane);
 				buttonPane.setLayout(null);
 		
-				cancelButton = new JButton("Cancel");
-				cancelButton.setBounds(159, 5, 86, 29);
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+		cancelButton = new JButton("Cancel");
+		cancelButton.setBounds(159, 5, 86, 29);
+		cancelButton.setActionCommand("Cancel");
+		buttonPane.add(cancelButton);
 
 		okButton = new JButton("OK");
 		okButton.setBounds(279, 5, 75, 29);
@@ -127,5 +127,9 @@ public class Conectar extends JDialog {
 	
 	public void showError(){
 		
+	}
+	
+	public void dismiss(){
+		this.dispose();
 	}
 }

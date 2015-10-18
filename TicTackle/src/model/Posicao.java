@@ -26,12 +26,6 @@ public class Posicao extends JPanel {
 	    setSize(size);
 	    setLayout(null);
 	}
-	
-	public Posicao(int type, int row, int column) {
-		this.tipo = type;
-		this.coluna = column;
-		this.linha = row;
-	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

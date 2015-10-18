@@ -1,14 +1,10 @@
 package view;
 
-import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -22,7 +18,6 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
 
 public class ImagemTabuleiro extends JFrame {
 
@@ -58,44 +53,44 @@ public class ImagemTabuleiro extends JFrame {
 	
 	protected int contarCliques;
 	
-	protected Controle controle;
 	private JPanel panel;
 	private JButton btn_como_jogar;
 	private JButton btn_desistir_partida;
 	private JButton btn_reiniciar_partida;
+	private Controle mControle;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ImagemTabuleiro frame = new ImagemTabuleiro();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ImagemTabuleiro frame = new ImagemTabuleiro();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
+	
 	/**
 	 * Create the frame.
 	 */
-	public ImagemTabuleiro() {
+	public ImagemTabuleiro(Controle controle) {
 		initialize();
 		setProperties();
 		addListeners();
 		setVisible(true);
+		mControle = controle;
 	}
 
 	public void initialize(){
 		
 		container = new JPanel();
-		
-		controle = new Controle();
-		
+				
 		position_1_1 = new Posicao(loadImage("circle.png"), 1, 1, 1);
 		position_1_1.setLayout(null);
 
@@ -393,21 +388,21 @@ public class ImagemTabuleiro extends JFrame {
 		btn_desistir_partida.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controle.desistirPartida();
+				mControle.desistirPartida();
 			}
 		});
 		
 		btn_reiniciar_partida.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controle.reiniciarPartida();
+				mControle.reiniciarPartida();
 			}
 		});
 		
 		btn_como_jogar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controle.comoJogar();
+				mControle.comoJogar();
 			}
 		});
 	
@@ -438,8 +433,8 @@ public class ImagemTabuleiro extends JFrame {
 		if(contarCliques == 2){
 			contarCliques = 0;
 			
-			if(controle.realizarLanceControle(prePos, position)){
-				controle.getPosicoesGame(getPosicoes());
+			if(mControle.realizarLanceControle(prePos, position)){
+				mControle.getPosicoesGame(getPosicoes());
 			}
 		}
 	}
