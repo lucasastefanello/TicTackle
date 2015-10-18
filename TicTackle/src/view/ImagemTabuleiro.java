@@ -2,10 +2,13 @@ package view;
 
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.Toolkit;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -18,6 +21,8 @@ import model.Posicao;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class ImagemTabuleiro extends JFrame {
 
@@ -59,21 +64,21 @@ public class ImagemTabuleiro extends JFrame {
 	private JButton btn_desistir_partida;
 	private JButton btn_reiniciar_partida;
 	
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ImagemTabuleiro frame = new ImagemTabuleiro();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ImagemTabuleiro frame = new ImagemTabuleiro();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
@@ -91,52 +96,52 @@ public class ImagemTabuleiro extends JFrame {
 		
 		controle = new Controle();
 		
-		position_1_1 = new Posicao(1, 1, 1);
+		position_1_1 = new Posicao(loadImage("circle.png"), 1, 1, 1);
 		position_1_1.setLayout(null);
 
-		position_1_2 = new Posicao(0, 1, 2);
+		position_1_2 = new Posicao(loadImage("cross.png"), 0, 1, 2);
 		position_1_2.setLayout(null);
 
-		position_1_3 = new Posicao(1, 1, 3);
+		position_1_3 = new Posicao(loadImage("circle.png"), 1, 1, 3);
 		position_1_3.setLayout(null);
 
-		position_1_4 = new Posicao(0, 1, 4);
+		position_1_4 = new Posicao(loadImage("cross.png"), 0, 1, 4);
 		position_1_4.setLayout(null);
 		
-		position_2_1 = new Posicao(-1, 2, 1);
+		position_2_1 = new Posicao(loadImage("empty.png"), -1, 2, 1);
 		position_2_1.setLayout(null);
 
-		position_2_2 = new Posicao(-1, 2, 2);
+		position_2_2 = new Posicao(loadImage("empty.png"), -1, 2, 2);
 		position_2_2.setLayout(null);
 
-		position_2_3 = new Posicao(-1, 2, 3);
+		position_2_3 = new Posicao(loadImage("empty.png"), -1, 2, 3);
 		position_2_3.setLayout(null);
 
-		position_2_4 = new Posicao(-1, 2, 4);
+		position_2_4 = new Posicao(loadImage("empty.png"), -1, 2, 4);
 		position_2_4.setLayout(null);
 
-		position_3_1 = new Posicao(-1, 3, 1);
+		position_3_1 = new Posicao(loadImage("empty.png"), -1, 3, 1);
 		position_3_1.setLayout(null);
 
-		position_3_2 = new Posicao(-1, 3, 2);
+		position_3_2 = new Posicao(loadImage("empty.png"), -1, 3, 2);
 		position_3_2.setLayout(null);
 
-		position_3_3 = new Posicao(-1, 3, 3);
+		position_3_3 = new Posicao(loadImage("empty.png"), -1, 3, 3);
 		position_3_3.setLayout(null);
 
-		position_3_4 = new Posicao(-1, 3, 4);
+		position_3_4 = new Posicao(loadImage("empty.png"), -1, 3, 4);
 		position_3_4.setLayout(null);
 
-		position_4_1 = new Posicao(0, 4, 1);
+		position_4_1 = new Posicao(loadImage("cross.png"), 0, 4, 1);
 		position_4_1.setLayout(null);
 
-		position_4_2 = new Posicao(1, 4, 2);
+		position_4_2 = new Posicao(loadImage("circle.png"), 1, 4, 2);
 		position_4_2.setLayout(null);
 
-		position_4_3 = new Posicao(0, 4, 3);
+		position_4_3 = new Posicao(loadImage("cross.png"), 0, 4, 3);
 		position_4_3.setLayout(null);
 
-		position_4_4 = new Posicao(1, 4, 4);
+		position_4_4 = new Posicao(loadImage("circle.png"), 1, 4, 4);
 		position_4_4.setLayout(null);
 		
 		panel = new JPanel();
@@ -409,8 +414,10 @@ public class ImagemTabuleiro extends JFrame {
 	}
 	
 	public static Image loadImage(String name) {
-		String filename = "images/" + name;
-		return new ImageIcon(filename).getImage();
+		String filename = "src/images/" + name;
+		File file = new File(filename);
+		Image image = Toolkit.getDefaultToolkit().getImage(file.getAbsolutePath());
+		return image;
 	}
 	
 	public void solicitaJogada(Posicao position){
