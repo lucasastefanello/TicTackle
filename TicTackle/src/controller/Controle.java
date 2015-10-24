@@ -75,6 +75,7 @@ public class Controle {
 			jogador = new Jogador(nomeJogador, "vermelho");
 			mTabuleiro = new Tabuleiro(jogador, mAtorNetGames, this);
 			mTabuleiro.setDaVezJogador(false);
+			
 		}else{
 			jogador = new Jogador(nomeJogador, "azul");
 			mTabuleiro = new Tabuleiro(jogador, mAtorNetGames, this);

@@ -98,11 +98,11 @@ public class AtorNetGames implements OuvidorProxy {
     }
 
     
-//   public void receberJogada(Lance lance){
-//       if(lance.isCriarJogo()){
-//    	   mControle.criarJogo();
-//       }
-//    }
+   public void receberJogada(Lance lance){
+       if(lance.isCriarJogo()){
+    	   mControle.criarJogo();
+       }
+    }
 
     public int iniciarPartida() {
         try {
