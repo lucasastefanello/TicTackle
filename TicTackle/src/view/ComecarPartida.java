@@ -65,7 +65,7 @@ public class ComecarPartida extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				mControle.criarJogo();
+				//mControle.criarJogo();
 			}
 		});
 		

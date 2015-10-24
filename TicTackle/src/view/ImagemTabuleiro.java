@@ -49,6 +49,8 @@ public class ImagemTabuleiro extends JFrame {
 	protected Posicao position_4_3;
 	protected Posicao position_4_4;
 	
+	protected Posicao daVez;
+	
 	protected Posicao prePos;
 	
 	protected int contarCliques;
@@ -146,6 +148,8 @@ public class ImagemTabuleiro extends JFrame {
 		btn_reiniciar_partida = new JButton("Reiniciar Partida");
 
 		btn_desistir_partida = new JButton("Desistir da Partida");
+		
+		daVez = new Posicao(loadImage("circle.png"), 1, 4, 4); ///continuar aqui
 
 	}
 	

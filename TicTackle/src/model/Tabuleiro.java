@@ -10,8 +10,7 @@ import view.ReiniciarPartidaNegado;
 
 public class Tabuleiro{
 	
-	private Jogador jogadorAzul;
-	private Jogador jogadorVermelho;
+	private Jogador mJogador;
 	private VerificaVencedor existeVencedor;
 	private Posicao [] posicoes;
 	private int [] estado;
@@ -22,16 +21,14 @@ public class Tabuleiro{
 	// 0 == blue
 	// 1 == red
 	
-	public Tabuleiro(AtorNetGames atorNetGames, Controle controle){
+	public Tabuleiro(Jogador jogador, AtorNetGames atorNetGames, Controle controle){
 		
 		mAtorNetGames = atorNetGames;
 		mControle = controle;
 	
-		jogadorAzul = new Jogador("jogadorAzul", "azul");
-		jogadorVermelho = new Jogador("jogadorVermelho", "vermelho");
+		mJogador = jogador;
 		
-		jogadorAzul.setDaVez(true);
-		jogadorVermelho.setDaVez(true);
+		mJogador.setDaVez(true);
 		
 		combinacoes = new String[2];
 		
@@ -47,29 +44,26 @@ public class Tabuleiro{
 	
 	public boolean realizarLanceTabuleiro(Posicao prePos, Posicao posPos){
 		
-		if(ehLanceValido(prePos, posPos)) {
+		if(mJogador.isDaVez()){
+
+			if(ehLanceValido(prePos, posPos)) {
 					
-			if(jogadorAzul.isDaVez() && prePos.getType() == 0){
 				trocarPosicao(prePos, posPos);
-				jogadorAzul.setDaVez(false);
-				jogadorVermelho.setDaVez(true);
+				
 				if(ehVencedor(0)){
 					
 				}
 			}
 
-			if(jogadorVermelho.isDaVez() && prePos.getType() == 1){
-				trocarPosicao(prePos, posPos);
-				jogadorAzul.setDaVez(true);
-				jogadorVermelho.setDaVez(false);
-				if(ehVencedor(1)){
-					
-				}
-			}
 			return true;
 		}
 		return false;
-	}	
+	}
+	
+	public void setDaVezJogador(boolean v){
+		mJogador.setDaVez(v);
+		mControle.mostraDaVezTabuleiro(v);
+	}
 	
 	public boolean ehLanceValido(Posicao prePos, Posicao posPos){
 		
@@ -205,7 +199,7 @@ public class Tabuleiro{
 		//envia requisicao de reinicio
 		
 		// se aceita
-		new Reiniciar(jogadorAzul.getName(), jogadorAzul.getName());
+		new Reiniciar(mJogador.getName(), mJogador.getName());
 		
 		// se nao aceita
 		

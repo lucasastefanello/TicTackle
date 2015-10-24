@@ -23,15 +23,14 @@ public class AtorNetGames implements OuvidorProxy {
     private Tabuleiro mTabuleiro;
     private Controle mControle;
     
-
-    public AtorNetGames() {
-        mProxy = Proxy.getInstance();
+    public AtorNetGames(Controle controle){
+    	mProxy = Proxy.getInstance();
         mProxy.addOuvinte(this);
-        mTabuleiro = new Tabuleiro();
+    	mControle = controle;
     }
     
-    public AtorNetGames(Controle controle){
-    	mControle = controle;
+    public void setTabuleiro(Tabuleiro tabuleiro){
+    	mTabuleiro = tabuleiro;
     }
 
     public int conectar(String enderecoServ, String nomeJogador) {
@@ -94,7 +93,7 @@ public class AtorNetGames implements OuvidorProxy {
         try {
             mProxy.iniciarPartida(new Integer(2));
             JOptionPane.showMessageDialog(null, "Conectado, \nAguarde outro jogador entrar na sala");
-            //controlador.setVez();
+            mControle.criarJogo();
             return 200;
            
         } catch (NaoConectadoException ex) {
@@ -152,6 +151,8 @@ public class AtorNetGames implements OuvidorProxy {
     }
 
     public boolean temAdversario() {
+    	
         return !this.mProxy.obterNomeAdversarios().isEmpty();
+        
     }
 }
