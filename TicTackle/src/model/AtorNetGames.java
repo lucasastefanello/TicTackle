@@ -62,9 +62,23 @@ public class AtorNetGames implements OuvidorProxy {
         }
     }
     
-    public void enviarJogada(Jogada lance) {
+    public void enviarJogada(Lance lance) {
         try {
             mProxy.enviaJogada(lance);
+
+        } catch (NaoJogandoException ex) {
+
+        }
+    }
+    
+    public void existeJogador() {
+        try {
+        	
+        	Lance criarJogo = new Lance();
+        	
+        	criarJogo.setCriarJogo(true);
+        	
+            mProxy.enviaJogada(criarJogo);
 
         } catch (NaoJogandoException ex) {
 
@@ -83,11 +97,12 @@ public class AtorNetGames implements OuvidorProxy {
          }
     }
 
-    @Override
-   public void receberJogada(Jogada jogada){
-       
-        
-    }
+    
+//   public void receberJogada(Lance lance){
+//       if(lance.isCriarJogo()){
+//    	   mControle.criarJogo();
+//       }
+//    }
 
     public int iniciarPartida() {
         try {
@@ -155,4 +170,14 @@ public class AtorNetGames implements OuvidorProxy {
         return !this.mProxy.obterNomeAdversarios().isEmpty();
         
     }
+
+	@Override
+	public void receberJogada(Jogada jogada) {
+		
+		Lance lance = (Lance) jogada;
+		
+		if(lance.isCriarJogo()){
+	       mControle.criarJogo();
+	    }
+	}
 }
