@@ -1,11 +1,14 @@
 package controller;
 
+import java.awt.Color;
+
 import view.ComecarPartida;
 import view.ComoJogar;
 import view.Conectar;
 import view.ImagemTabuleiro;
 import model.AtorJogador;
 import model.AtorNetGames;
+import model.Jogador;
 import model.Posicao;
 import model.Tabuleiro;
 
@@ -16,9 +19,10 @@ public class Controle {
 	private AtorNetGames mAtorNetGames;
 	private AtorJogador mAtorJogador;
 	private Conectar mConectar;
+	private String nomeJogador;
 
 	public Controle(){
-		mAtorNetGames = new AtorNetGames();
+		mAtorNetGames = new AtorNetGames(this);
 		mConectar = new Conectar(this);
 	}
 
@@ -46,7 +50,10 @@ public class Controle {
 		mImagemTabuleiro.dismiss();
 	}
 	
-	public void conectarComServidor(String server, String nomeJogador){
+	public void conectarComServidor(String server, String nome){
+		
+		nomeJogador = nome;
+		
 		int resultado = mAtorNetGames.conectar(server, nomeJogador);
 		
 		switch (resultado) {
@@ -63,7 +70,22 @@ public class Controle {
 	
 	public void criarJogo(){
 		mImagemTabuleiro = new ImagemTabuleiro(this);
-		mTabuleiro = new Tabuleiro(mAtorNetGames, this);
+		Jogador jogador;
+		if(mAtorNetGames.temAdversario()){
+			jogador = new Jogador(nomeJogador, "vermelho");
+			mTabuleiro = new Tabuleiro(jogador, mAtorNetGames, this);
+			mTabuleiro.setDaVezJogador(false);
+		}else{
+			jogador = new Jogador(nomeJogador, "azul");
+			mTabuleiro = new Tabuleiro(jogador, mAtorNetGames, this);
+			mTabuleiro.setDaVezJogador(true);
+		}
+		
+		mAtorNetGames.setTabuleiro(mTabuleiro);
 		mAtorJogador = new AtorJogador(mTabuleiro);
+	}
+	
+	public void mostraDaVezTabuleiro(boolean v){
+		//mImagemTabuleiro.mostraDaVezTabuleiro(v);
 	}
 }
