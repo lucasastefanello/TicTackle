@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -18,6 +19,9 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.awt.Component;
+
+import javax.swing.JLabel;
 
 public class ImagemTabuleiro extends JFrame {
 
@@ -58,7 +62,6 @@ public class ImagemTabuleiro extends JFrame {
 	private JPanel panel;
 	private JButton btn_como_jogar;
 	private JButton btn_desistir_partida;
-	private JButton btn_reiniciar_partida;
 	private Controle mControle;
 	
 //	/**
@@ -68,7 +71,7 @@ public class ImagemTabuleiro extends JFrame {
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
 //				try {
-//					ImagemTabuleiro frame = new ImagemTabuleiro();
+//					ImagemTabuleiro frame = new ImagemTabuleiro(null);
 //					frame.setVisible(true);
 //				} catch (Exception e) {
 //					e.printStackTrace();
@@ -81,11 +84,12 @@ public class ImagemTabuleiro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ImagemTabuleiro(Controle controle) {
+	public ImagemTabuleiro(Controle controle, String cor) {
 		initialize();
 		setProperties();
 		addListeners();
 		setVisible(true);
+		mostraDaVezTabuleiro(cor);
 		mControle = controle;
 	}
 
@@ -93,71 +97,69 @@ public class ImagemTabuleiro extends JFrame {
 		
 		container = new JPanel();
 				
-		position_1_1 = new Posicao(loadImage("circle.png"), 1, 1, 1);
+		position_1_1 = new Posicao(loadImage("peaoVermelho.png"), 1, 1, 1);
 		position_1_1.setLayout(null);
 
-		position_1_2 = new Posicao(loadImage("cross.png"), 0, 1, 2);
+		position_1_2 = new Posicao(loadImage("peaoAzul.png"), 0, 1, 2);
 		position_1_2.setLayout(null);
 
-		position_1_3 = new Posicao(loadImage("circle.png"), 1, 1, 3);
+		position_1_3 = new Posicao(loadImage("peaoVermelho.png"), 1, 1, 3);
 		position_1_3.setLayout(null);
 
-		position_1_4 = new Posicao(loadImage("cross.png"), 0, 1, 4);
+		position_1_4 = new Posicao(loadImage("peaoAzul.png"), 0, 1, 4);
+		position_1_4.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		position_1_4.setLayout(null);
 		
-		position_2_1 = new Posicao(loadImage("empty.png"), -1, 2, 1);
+		position_2_1 = new Posicao(loadImage("espacoVazio.png"), -1, 2, 1);
 		position_2_1.setLayout(null);
 
-		position_2_2 = new Posicao(loadImage("empty.png"), -1, 2, 2);
+		position_2_2 = new Posicao(loadImage("espacoVazio.png"), -1, 2, 2);
 		position_2_2.setLayout(null);
 
-		position_2_3 = new Posicao(loadImage("empty.png"), -1, 2, 3);
+		position_2_3 = new Posicao(loadImage("espacoVazio.png"), -1, 2, 3);
 		position_2_3.setLayout(null);
 
-		position_2_4 = new Posicao(loadImage("empty.png"), -1, 2, 4);
+		position_2_4 = new Posicao(loadImage("espacoVazio.png"), -1, 2, 4);
 		position_2_4.setLayout(null);
 
-		position_3_1 = new Posicao(loadImage("empty.png"), -1, 3, 1);
+		position_3_1 = new Posicao(loadImage("espacoVazio.png"), -1, 3, 1);
 		position_3_1.setLayout(null);
 
-		position_3_2 = new Posicao(loadImage("empty.png"), -1, 3, 2);
+		position_3_2 = new Posicao(loadImage("espacoVazio.png"), -1, 3, 2);
 		position_3_2.setLayout(null);
 
-		position_3_3 = new Posicao(loadImage("empty.png"), -1, 3, 3);
+		position_3_3 = new Posicao(loadImage("espacoVazio.png"), -1, 3, 3);
 		position_3_3.setLayout(null);
 
-		position_3_4 = new Posicao(loadImage("empty.png"), -1, 3, 4);
+		position_3_4 = new Posicao(loadImage("espacoVazio.png"), -1, 3, 4);
 		position_3_4.setLayout(null);
 
-		position_4_1 = new Posicao(loadImage("cross.png"), 0, 4, 1);
+		position_4_1 = new Posicao(loadImage("peaoAzul.png"), 0, 4, 1);
 		position_4_1.setLayout(null);
 
-		position_4_2 = new Posicao(loadImage("circle.png"), 1, 4, 2);
+		position_4_2 = new Posicao(loadImage("peaoVermelho.png"), 1, 4, 2);
 		position_4_2.setLayout(null);
 
-		position_4_3 = new Posicao(loadImage("cross.png"), 0, 4, 3);
+		position_4_3 = new Posicao(loadImage("peaoAzul.png"), 0, 4, 3);
 		position_4_3.setLayout(null);
 
-		position_4_4 = new Posicao(loadImage("circle.png"), 1, 4, 4);
+		position_4_4 = new Posicao(loadImage("peaoVermelho.png"), 1, 4, 4);
 		position_4_4.setLayout(null);
+		
+		daVez = new Posicao(loadImage("peaoVermelho.png"), 1, 4, 4); ///continuar aqui
 		
 		panel = new JPanel();
 		
 		btn_como_jogar = new JButton("Como Jogar?");
-		
-		btn_reiniciar_partida = new JButton("Reiniciar Partida");
 
 		btn_desistir_partida = new JButton("Desistir da Partida");
-		
-		daVez = new Posicao(loadImage("circle.png"), 1, 4, 4); ///continuar aqui
-
 	}
 	
 	public void setProperties(){
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setBounds(100, 100, 493, 549);
+		setBounds(100, 100, 700, 550);
 		container.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(container);
 		container.setBorder(BORDER_COMPOUND);
@@ -248,14 +250,19 @@ public class ImagemTabuleiro extends JFrame {
 		panel.add(btn_como_jogar);
 		container.add(panel);
 
-		btn_como_jogar.setBounds(165, 5, 122, 29);
+		container.add(daVez);
 		
-		btn_desistir_partida.setBounds(297, 5, 159, 29);
+		btn_como_jogar.setBounds(78, 5, 122, 29);
+		
+		btn_desistir_partida.setBounds(228, 5, 159, 29);
 		panel.add(btn_desistir_partida);
-
-		btn_reiniciar_partida.setBounds(10, 5, 145, 29);
-		panel.add(btn_reiniciar_partida);
 		
+		JLabel lblJogadorDaVez = new JLabel("Jogador Da Vez:");
+		lblJogadorDaVez.setBounds(531, 141, 118, 16);
+		container.add(lblJogadorDaVez);
+		
+		daVez.setSize(100, 100);
+		daVez.setLocation(531, 192);
 		
 	}
 
@@ -396,13 +403,6 @@ public class ImagemTabuleiro extends JFrame {
 			}
 		});
 		
-		btn_reiniciar_partida.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				mControle.reiniciarPartida();
-			}
-		});
-		
 		btn_como_jogar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -469,5 +469,14 @@ public class ImagemTabuleiro extends JFrame {
 	
 	public void dismiss(){
 		dispose();
+	}
+
+	public void mostraDaVezTabuleiro(String cor) {
+		
+		if(cor.equals("vermelho")) {
+			daVez.setImagem(loadImage("peaoVermelho"));
+		}else {
+			daVez.setImagem(loadImage("peaoAzul"));
+		}
 	}
 }
