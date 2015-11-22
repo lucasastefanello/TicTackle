@@ -38,18 +38,14 @@ public class AtorNetGames implements OuvidorProxy {
             mProxy.conectar(enderecoServ, nomeJogador);
             this.mStatusConexao = true;
             //controlador.setVez();
-             //JOptionPane.showMessageDialog(null, "Conexão estabelecida.");
             return 200;
         } catch (JahConectadoException ex) {
-            //JOptionPane.showMessageDialog(null, "Já existe uma conexão estabelecida.");
             return 201;
 
         } catch (NaoPossivelConectarException ex) {
-            //JOptionPane.showMessageDialog(null, "Impossível conectar. \nTente reiniciar o servidor.");
             return 404;
 
         } catch (ArquivoMultiplayerException ex) {
-            //JOptionPane.showMessageDialog(null, "Nenhum arquivo de propriedades foi encontrado.");
             return 500;
         }
     }
@@ -71,19 +67,19 @@ public class AtorNetGames implements OuvidorProxy {
         }
     }
     
-    public void existeJogador() {
-        try {
-        	
-        	Lance criarJogo = new Lance();
-        	
-        	criarJogo.setCriarJogo(true);
-        	
-            mProxy.enviaJogada(criarJogo);
-
-        } catch (NaoJogandoException ex) {
-
-        }
-    }
+//    public void existeJogador() {
+//        try {
+//        	
+//        	Lance criarJogo = new Lance();
+//        	
+//        	criarJogo.setCriarJogo(true);
+//        	
+//            mProxy.enviaJogada(criarJogo);
+//
+//        } catch (NaoJogandoException ex) {
+//
+//        }
+//    }
     
     public void encerrarPartida() throws NaoJogandoException {
         
@@ -97,22 +93,12 @@ public class AtorNetGames implements OuvidorProxy {
          }
     }
 
-    
-   public void receberJogada(Lance lance){
-       if(lance.isCriarJogo()){
-    	   mControle.criarJogo();
-       }
-    }
-
     public int iniciarPartida() {
         try {
             mProxy.iniciarPartida(new Integer(2));
-            JOptionPane.showMessageDialog(null, "Conectado, \nAguarde outro jogador entrar na sala");
-            mControle.criarJogo();
             return 200;
            
         } catch (NaoConectadoException ex) {
-           JOptionPane.showMessageDialog(null, "Impossível conectar. \nTente reiniciar o servidor.");
             return 404;          
         }
     }
@@ -138,7 +124,7 @@ public class AtorNetGames implements OuvidorProxy {
 
     @Override
     public void iniciarNovaPartida(Integer posicao) {
-      
+    	mControle.criarJogo();
     }
 
     @Override
@@ -173,11 +159,19 @@ public class AtorNetGames implements OuvidorProxy {
 
 	@Override
 	public void receberJogada(Jogada jogada) {
-		
+				
 		Lance lance = (Lance) jogada;
 		
-		if(lance.isCriarJogo()){
-	       mControle.criarJogo();
-	    }
+		if(lance.isPartidaDesistida()){
+			mControle.partidaCancelada();
+		} 
+		else if(lance.isVencedorExiste()){
+			mTabuleiro.trocarPosicao(lance.getPrePos(), lance.getPosPos());
+			mControle.informarPerdedor();
+		}else {
+			mTabuleiro.trocarPosicao(lance.getPrePos(), lance.getPosPos());
+			mTabuleiro.setDaVezJogador(true);
+			mControle.mostraDaVezTabuleiro();
+		}
 	}
 }
