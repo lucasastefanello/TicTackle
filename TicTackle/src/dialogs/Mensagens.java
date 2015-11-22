@@ -24,7 +24,7 @@ public class Mensagens {
 	
 	public void esconderConectar(){
 		if(mConectar != null){
-			mConectar.dismiss();
+			mConectar.fecharConectar();
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class Mensagens {
 	}
 	
 	public void mostrarPartidaCancelada(){
-		mPartidaCancelada = new PartidaCancelada();
+		mPartidaCancelada = new PartidaCancelada(mControle);
 	}
 	
 	public void mostrarVencedor(){
@@ -78,5 +78,9 @@ public class Mensagens {
 
 	public void resetConectar() {
 		mConectar.resetCampos();
+	}
+	
+	public void fecharConectar(){
+		mConectar.fecharConectar();
 	}
 }
