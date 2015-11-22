@@ -78,6 +78,7 @@ public class DesistirPartida extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mControle.confirmarDesitencia();
+				fecharDesistirPartida();
 			}
 		});
 		
@@ -87,5 +88,9 @@ public class DesistirPartida extends JDialog {
 				dispose();			
 			}
 		});
+	}
+	
+	public void fecharDesistirPartida(){
+		this.dispose();
 	}
 }
