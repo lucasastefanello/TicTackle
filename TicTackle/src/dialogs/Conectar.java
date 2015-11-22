@@ -92,7 +92,8 @@ public class Conectar extends JDialog {
 		
 		esperar = new JLabel("Aguarde outro jogador se conectar...");
 		esperar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		esperar.setBounds(224, 96, 85, 28);
+		esperar.setBounds(63, 106, 429, 28);
+		esperar.setVisible(false);
 		contentPanel.add(esperar);
 
 		JPanel buttonPane = new JPanel();
@@ -114,19 +115,19 @@ public class Conectar extends JDialog {
 		
 		erroConexao = new JLabel("Impossível conectar. Tente reiniciar o servidor");
 		erroConexao.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		erroConexao.setBounds(224, 96, 85, 28);
+		erroConexao.setBounds(39, 96, 448, 28);
 		contentPanel.add(erroConexao);
 		erroConexao.setVisible(false);
 		
 		erroPropriedade = new JLabel("Nenhum arquivo de propriedades foi encontrado");
 		erroPropriedade.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		erroPropriedade.setBounds(224, 96, 85, 28);
+		erroPropriedade.setBounds(29, 96, 484, 28);
 		contentPanel.add(erroPropriedade);
 		erroPropriedade.setVisible(false);
 		
-		conexaoEstabelecida = new JLabel("Nenhum arquivo de propriedades foi encontrado");
+		conexaoEstabelecida = new JLabel("Já existe uma conexão estabelecida");
 		conexaoEstabelecida.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		conexaoEstabelecida.setBounds(224, 96, 85, 28);
+		conexaoEstabelecida.setBounds(90, 96, 374, 28);
 		contentPanel.add(conexaoEstabelecida);
 		conexaoEstabelecida.setVisible(false);
 		
@@ -155,6 +156,7 @@ public class Conectar extends JDialog {
 		textFieldServer.setVisible(false);
 		label_nome.setVisible(false);
 		label_server.setVisible(false);
+		lblConectar.setVisible(false);
 		
 		erroPropriedade.setVisible(false);
 		conexaoEstabelecida.setVisible(false);
@@ -202,7 +204,7 @@ public class Conectar extends JDialog {
 		conexaoEstabelecida.setVisible(true);
 	}
 	
-	public void dismiss(){
+	public void fecharConectar(){
 		this.dispose();
 	}
 
