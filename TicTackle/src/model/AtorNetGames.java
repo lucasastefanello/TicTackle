@@ -37,7 +37,6 @@ public class AtorNetGames implements OuvidorProxy {
         try {
             mProxy.conectar(enderecoServ, nomeJogador);
             this.mStatusConexao = true;
-            //controlador.setVez();
             return 200;
         } catch (JahConectadoException ex) {
             return 201;
@@ -129,7 +128,7 @@ public class AtorNetGames implements OuvidorProxy {
 
     @Override
     public void finalizarPartidaComErro(String message) {
-        JOptionPane.showMessageDialog(null, "O conexão com outro jogador foi perdida, você venceu");
+        //JOptionPane.showMessageDialog(null, "O conexão com outro jogador foi perdida, você venceu");
         System.exit(0);
     }
 
