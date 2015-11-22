@@ -121,7 +121,8 @@ public class Controle {
 	}
 	
 	public void criarJogo(){
-		new ImagemTabuleiro(this, mJogador.getCor());
+		mMensagens.fecharConectar();
+		mImagemTabuleiro = new ImagemTabuleiro(this, mJogador.getCor());
 	}
 	
 	// ========================================MOSTRAR_DA_VEZ========================================//
@@ -134,7 +135,6 @@ public class Controle {
 
 	public void partidaCancelada() {
 		mMensagens.mostrarPartidaCancelada();
-		fimDePartida();
 	}
 
 	// ========================================INFORMAR_PERDEDOR_VENCEDOR========================================//
