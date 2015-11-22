@@ -7,8 +7,14 @@ public class Lance implements Jogada{
 	private Posicao prePos;
 	private Posicao posPos;
 	private boolean vencedorExiste;
-	private boolean criarJogo;
-	
+	private boolean partidaDesistida;
+
+	public boolean isPartidaDesistida() {
+		return partidaDesistida;
+	}
+	public void setPartidaDesistida(boolean partidaDesistida) {
+		this.partidaDesistida = partidaDesistida;
+	}
 	public Posicao getPrePos() {
 		return prePos;
 	}
@@ -26,12 +32,6 @@ public class Lance implements Jogada{
 	}
 	public void setVencedorExiste(boolean vencedorExiste) {
 		this.vencedorExiste = vencedorExiste;
-	}
-	public boolean isCriarJogo() {
-		return criarJogo;
-	}
-	public void setCriarJogo(boolean criarJogo) {
-		this.criarJogo = criarJogo;
 	}
 	
 	
