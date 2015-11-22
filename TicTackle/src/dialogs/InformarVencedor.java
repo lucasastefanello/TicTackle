@@ -1,4 +1,4 @@
-package view;
+package dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -12,7 +12,11 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
+import controller.Controle;
+
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class InformarVencedor extends JDialog {
 
@@ -22,16 +26,18 @@ public class InformarVencedor extends JDialog {
 			.createLoweredBevelBorder();
 	private final CompoundBorder BORDER_COMPOUND = BorderFactory
 			.createCompoundBorder(RAISED_LEVEL, LOWERED_LEVEL);
-	private static String name;
-
+	
+	private Controle mControle;
 	
 	/**
 	 * Create the dialog.
 	 */
-	public InformarVencedor(String name) {
+	public InformarVencedor(Controle controle) {
+		
+		mControle = controle;
+		
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		this.name = name;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,7 +45,7 @@ public class InformarVencedor extends JDialog {
 		contentPanel.setBorder(BORDER_COMPOUND);
 		contentPanel.setLayout(null);
 		
-		JLabel lblOJogadorTal = new JLabel("O jogador "+ name + " venceu a partida!");
+		JLabel lblOJogadorTal = new JLabel("Você venceu a partida!!! :)");
 		lblOJogadorTal.setFont(new Font("Lithos Pro", Font.PLAIN, 20));
 		lblOJogadorTal.setBounds(41, 92, 368, 54);
 		contentPanel.add(lblOJogadorTal);
@@ -49,9 +55,17 @@ public class InformarVencedor extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						mControle.fimDePartida();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
+				
+				
 			}
 		}
 	}

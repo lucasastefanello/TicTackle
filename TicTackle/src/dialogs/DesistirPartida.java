@@ -1,4 +1,4 @@
-package view;
+package dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -12,6 +12,8 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
+import controller.Controle;
 
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -27,13 +29,16 @@ public class DesistirPartida extends JDialog {
 			.createCompoundBorder(RAISED_LEVEL, LOWERED_LEVEL);
 	private JButton okButton;
 	private JButton cancelButton;
+	private Controle mControle;
 
 	/**
 	 * Create the dialog.
 	 */
-	public DesistirPartida() {
+	public DesistirPartida(Controle controle) {
 		setPanel();
 		setListeners();
+		
+		mControle = controle;
 	}
 	
 	public void setPanel(){
@@ -72,7 +77,7 @@ public class DesistirPartida extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			
+				mControle.confirmarDesitencia();
 			}
 		});
 		
