@@ -1,12 +1,11 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
 
 import controller.Controle;
-import view.DesistirPartida;
-import view.PartidaCancelada;
-import view.Reiniciar;
-import view.ReiniciarPartidaNegado;
 
 public class Tabuleiro{
 	
@@ -18,6 +17,10 @@ public class Tabuleiro{
 	private String[] combinacoes;
 	private AtorNetGames mAtorNetGames;
 	private Controle mControle;
+	private Image peaoAzul;
+	private Image peaoVermelho;
+	private Image espacoVazio;
+	
 	// 0 == blue
 	// 1 == red
 	
@@ -36,10 +39,14 @@ public class Tabuleiro{
 		
 		combinacoes[0] = "000";
 		combinacoes[1] = "111";
+		
+		inicializarImagens();
 	}
 	
-	public Tabuleiro(){
-		
+	private void inicializarImagens() {
+		peaoAzul = loadImage("peaoAzul");
+		peaoVermelho = loadImage("peaoVermelho");
+		espacoVazio = loadImage("espacoVazio");
 	}
 	
 	public boolean realizarLanceTabuleiro(Posicao prePos, Posicao posPos){
@@ -51,7 +58,18 @@ public class Tabuleiro{
 				trocarPosicao(prePos, posPos);
 				
 				if(ehVencedor(0)){
+					mControle.informarVencedor();
 					
+					Lance lanceInformarPerdedor = new Lance();
+					lanceInformarPerdedor.setVencedorExiste(true);
+					mAtorNetGames.enviarJogada(lanceInformarPerdedor);
+					
+				}else{
+					Lance lanceNormal = new Lance();
+					lanceNormal.setVencedorExiste(false);
+					lanceNormal.setPartidaDesistida(false);
+					mAtorNetGames.enviarJogada(lanceNormal);
+					setDaVezJogador(false);
 				}
 			}
 
@@ -62,7 +80,6 @@ public class Tabuleiro{
 	
 	public void setDaVezJogador(boolean v){
 		mJogador.setDaVez(v);
-		mControle.mostraDaVezTabuleiro(v);
 	}
 	
 	public boolean ehLanceValido(Posicao prePos, Posicao posPos){
@@ -93,6 +110,14 @@ public class Tabuleiro{
 		posPos.setType(tempTypePre);
 		
 		setCor(prePos, posPos);
+		
+		prePos.setImagem(espacoVazio);
+		
+		if(posPos.getType() == 0){
+			posPos.setImagem(peaoAzul);
+		}else{
+			posPos.setImagem(peaoVermelho);
+		}
 	}
 	
 	
@@ -114,7 +139,6 @@ public class Tabuleiro{
 	
 	
 	public boolean ehVencedor(int i){
-	
 		inicializarMatriz();
 		existeVencedor = new VerificaVencedor(matriz, combinacoes[i]);
 		return existeVencedor.solve();
@@ -127,36 +151,36 @@ public class Tabuleiro{
 		}
 	}
 	
-	public void enviaEstado(Posicao prePos, Posicao posPre){
-		Posicao [] estado = new Posicao[2];
-		estado[0] = prePos;
-		estado[1] = posPre;
-		
-		// netGames envia array...
-	}
-	
-	public void recebeEstado(Posicao prePos, Posicao posPos){
-		
-		int columnPre = prePos.getColumn();
-		int rowPre = prePos.getRow();
-	
-		int columnPos = posPos.getColumn();
-		int rowPos = posPos.getRow();
-		
-		for(int i = 0; i < posicoes.length; i ++){
-			
-			if(posicoes[i].getColumn() == columnPre && posicoes[i].getRow() == rowPre){
-				prePos = posicoes[i];
-			}
-			
-			if(posicoes[i].getColumn() == columnPos && posicoes[i].getRow() == rowPos){
-				posPos = posicoes[i];
-			}
-		}
-		
-		trocarPosicao(prePos, posPos);
-		setCor(prePos, posPos);
-	}
+//	public void enviaEstado(Posicao prePos, Posicao posPre){
+//		Posicao [] estado = new Posicao[2];
+//		estado[0] = prePos;
+//		estado[1] = posPre;
+//		
+//		// netGames envia array...
+//	}
+//	
+//	public void recebeEstado(Posicao prePos, Posicao posPos){
+//		
+//		int columnPre = prePos.getColumn();
+//		int rowPre = prePos.getRow();
+//	
+//		int columnPos = posPos.getColumn();
+//		int rowPos = posPos.getRow();
+//		
+//		for(int i = 0; i < posicoes.length; i ++){
+//			
+//			if(posicoes[i].getColumn() == columnPre && posicoes[i].getRow() == rowPre){
+//				prePos = posicoes[i];
+//			}
+//			
+//			if(posicoes[i].getColumn() == columnPos && posicoes[i].getRow() == rowPos){
+//				posPos = posicoes[i];
+//			}
+//		}
+//		
+//		trocarPosicao(prePos, posPos);
+//		setCor(prePos, posPos);
+//	}
 	
 	public void inicializarMatriz(){
 		
@@ -183,26 +207,13 @@ public class Tabuleiro{
 	
 	public void getPosicoes(Posicao[] posicoes){
 		this.posicoes = posicoes;
-	}
-
-	public void desistirPartida(){
-		// netGames envia requisicao para mostrar popup de cancelamento e encerra a partida
-		new DesistirPartida();
-	}
-	
-	public void recebeCancelamento(){
-		new PartidaCancelada();
-		mControle.disposeInterface();
-	}
-	
-	public void reiniciarPartida(){
-		//envia requisicao de reinicio
-		
-		// se aceita
-		new Reiniciar(mJogador.getName(), mJogador.getName());
-		
-		// se nao aceita
-		
-		new ReiniciarPartidaNegado();
 	}	
+	
+	
+	public static Image loadImage(String name) {
+		String filename = "src/images/" + name;
+		File file = new File(filename);
+		Image image = Toolkit.getDefaultToolkit().getImage(file.getAbsolutePath());
+		return image;
+	}
 }
