@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 public class Posicao extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Image imagem = null;
+	
+
 	private int tipo;
 	private int coluna;
 	private int linha;
@@ -32,6 +34,14 @@ public class Posicao extends JPanel {
 		if (imagem != null) {
 			g.drawImage(imagem, 15, 15, this);
 		}
+	}
+	
+	public Image getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(Image imagem) {
+		this.imagem = imagem;
 	}
 
 	public int getType() {
