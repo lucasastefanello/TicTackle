@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
+import controller.Controle;
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,13 +19,15 @@ public class PartidaCancelada extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JButton okButton;
+	private Controle mControle;
 
 	/**
 	 * Create the dialog.
 	 */
-	public PartidaCancelada() {
+	public PartidaCancelada(Controle controle) {
 		setPanel();
 		setListeners();
+		mControle = controle;
 	}
 	
 	public void setPanel(){
@@ -56,7 +61,8 @@ public class PartidaCancelada extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				mControle.fimDePartida();
+				dispose();
 			}
 		});
 	}
