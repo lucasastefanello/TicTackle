@@ -11,7 +11,8 @@ public class Posicao extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Image imagem = null;
 	
-
+	private Graphics mG;
+	
 	private int tipo;
 	private int coluna;
 	private int linha;
@@ -28,11 +29,24 @@ public class Posicao extends JPanel {
 	    setSize(size);
 	    setLayout(null);
 	}
+	
+	public Posicao(int type, int row, int column) {
+		this.tipo = type;
+		this.coluna = column;
+		this.linha = row;
+//		Dimension size = new Dimension(imagem.getHeight(null), imagem.getHeight(null));
+//	    setPreferredSize(size);
+//	    setMinimumSize(size);
+//	    setMaximumSize(size);
+//	    setSize(size);
+	    setLayout(null);
+	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (imagem != null) {
 			g.drawImage(imagem, 15, 15, this);
+			mG = g;
 		}
 	}
 	
@@ -42,6 +56,7 @@ public class Posicao extends JPanel {
 
 	public void setImagem(Image imagem) {
 		this.imagem = imagem;
+		mG.drawImage(imagem, 15, 15, this);
 	}
 
 	public int getType() {

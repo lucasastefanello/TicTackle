@@ -1,9 +1,9 @@
 package controller;
 
-import dialogs.ComoJogar;
-import dialogs.Mensagens;
-import view.ImagemTabuleiro;
-import model.AtorNetGames;
+import network.AtorNetGames;
+import view_dialogs.ComoJogar;
+import view_dialogs.Mensagens;
+import view_main_gui.ImagemTabuleiro;
 import model.Jogador;
 import model.Lance;
 import model.Posicao;
@@ -17,6 +17,7 @@ public class Controle {
 	private String nomeJogador;
 	private Mensagens mMensagens;
 	private Jogador mJogador;
+	private String corJogador;
 
 	public Controle(){
 		mAtorNetGames = new AtorNetGames(this);
@@ -31,8 +32,8 @@ public class Controle {
 		return mTabuleiro.realizarLanceTabuleiro(prePos, posPos);
 	}
 	
-	public void getPosicoesGame(Posicao [] posicoes){
-		mTabuleiro.getPosicoes(posicoes);
+	public void setPosicoesParaTabuleiro(Posicao [] posicoes){
+		mTabuleiro.setPosicoes(posicoes);
 	}
 	
 	// ========================================DESISTIR_PARTIDA========================================//
@@ -86,7 +87,7 @@ public class Controle {
 				break;
 				
 			case 201:
-				mMensagens.mostrarConexaoJaEstabelecida();
+				//mMensagens.mostrarConexaoJaEstabelecida();
 				break;
 				
 			case 404:
@@ -105,15 +106,17 @@ public class Controle {
 	
 	// ========================================INICIAR/CRIAR_JOGO========================================//
 	
-	public void iniciar(){
+public void iniciar(){
 		
 		if(mAtorNetGames.temAdversario()){
-			mJogador = new Jogador(nomeJogador, "vermelho");
+			mJogador = new Jogador(nomeJogador, "vermelho", 1);
 			mTabuleiro = new Tabuleiro(mJogador, mAtorNetGames, this);
+			corJogador = "vermelho";
 			mTabuleiro.setDaVezJogador(false);			
 		}else{
-			mJogador = new Jogador(nomeJogador, "azul");
+			mJogador = new Jogador(nomeJogador, "azul", 0);
 			mTabuleiro = new Tabuleiro(mJogador, mAtorNetGames, this);
+			corJogador = "azul";
 			mTabuleiro.setDaVezJogador(true);
 		}
 		
@@ -123,12 +126,29 @@ public class Controle {
 	public void criarJogo(){
 		mMensagens.fecharConectar();
 		mImagemTabuleiro = new ImagemTabuleiro(this, mJogador.getCor());
+		mImagemTabuleiro.mostraDaVezTabuleiro("azul");
+		mTabuleiro.setPosicoes(mImagemTabuleiro.getPosicoes());
+		mostraCorJogadorTabuleiro(corJogador);
 	}
 	
 	// ========================================MOSTRAR_DA_VEZ========================================//
 	
-	public void mostraDaVezTabuleiro(){
-		mImagemTabuleiro.mostraDaVezTabuleiro(mJogador.getCor());
+	public void mostraDaVezTabuleiro(boolean b){
+		if(b){
+			mImagemTabuleiro.mostraDaVezTabuleiro(mJogador.getCor());
+		}else{
+			if(mJogador.getCor().equals("azul")){
+				mImagemTabuleiro.mostraDaVezTabuleiro("vermelho");
+			}else{
+				mImagemTabuleiro.mostraDaVezTabuleiro("azul");
+			}
+		}
+	}
+	
+	// ========================================MOSTRAR_COR_JOGADOR========================================//
+	
+	public void mostraCorJogadorTabuleiro(String cor){
+		mImagemTabuleiro.mostraCorJogadorTabuleiro(cor);
 	}
 	
 	// ========================================PARTIDA_CANCELADA========================================//
@@ -152,10 +172,14 @@ public class Controle {
 	// ========================================FIM_PARTIDA========================================//
 
 	public void fimDePartida() {
-		
+		mAtorNetGames.desconectar();
 		fecharImagemTabuleiro();
 		mMensagens.resetConectar();
 		mMensagens.mostrarConectar();
 		
+	}
+
+	public void conexaoPerdida() {
+		mMensagens.mostrarConexaoPerdida();
 	}
 }

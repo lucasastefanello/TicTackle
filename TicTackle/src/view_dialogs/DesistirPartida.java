@@ -1,4 +1,4 @@
-package dialogs;
+package view_dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

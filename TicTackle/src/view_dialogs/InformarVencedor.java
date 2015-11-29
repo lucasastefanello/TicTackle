@@ -1,11 +1,14 @@
-package dialogs;
+package view_dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
@@ -15,66 +18,54 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ComecarPartida extends JDialog {
+public class InformarVencedor extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JButton okButton;
-	private JButton cancelButton;
+	private final Border RAISED_LEVEL = BorderFactory.createRaisedBevelBorder();
+	private final Border LOWERED_LEVEL = BorderFactory
+			.createLoweredBevelBorder();
+	private final CompoundBorder BORDER_COMPOUND = BorderFactory
+			.createCompoundBorder(RAISED_LEVEL, LOWERED_LEVEL);
+	
 	private Controle mControle;
-
+	
 	/**
 	 * Create the dialog.
 	 */
-	public ComecarPartida(Controle controle) {
-		setPanel();
-		setListeners();
+	public InformarVencedor(Controle controle) {
+		
 		mControle = controle;
-	}
-	
-	public void setPanel(){
+		
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		setBounds(100, 100, 555, 212);
+		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setBorder(BORDER_COMPOUND);
 		contentPanel.setLayout(null);
-
-		JLabel ok = new JLabel("Tudo pronto! Vamos começar?");
-		ok.setBounds(105, 63, 345, 25);
-		ok.setFont(new Font("Lithos Pro", Font.PLAIN, 20));
-		contentPanel.add(ok);
-
+		
+		JLabel lblOJogadorTal = new JLabel("Você venceu a partida!!! :)");
+		lblOJogadorTal.setFont(new Font("Lithos Pro", Font.PLAIN, 20));
+		lblOJogadorTal.setBounds(41, 92, 368, 54);
+		contentPanel.add(lblOJogadorTal);
+		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		okButton = new JButton("SIM");
-		
-		okButton.setActionCommand("SIM");
+		JButton okButton = new JButton("OK");
+
+		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
-
-		cancelButton = new JButton("CANCELAR");
-		cancelButton.setActionCommand("CANCELAR");
-		buttonPane.add(cancelButton);
-	}
-	
-	public void setListeners(){
+		
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				mControle.fimDePartida();
 				dispose();
-				//mControle.criarJogo();
-			}
-		});
-		
-		cancelButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
 			}
 		});
 	}
-
 }

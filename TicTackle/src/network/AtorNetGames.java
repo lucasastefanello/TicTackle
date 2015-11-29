@@ -1,4 +1,4 @@
-package model;
+package network;
 
 import br.ufsc.inf.leobr.cliente.Jogada;
 import br.ufsc.inf.leobr.cliente.OuvidorProxy;
@@ -14,14 +14,16 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+import model.Lance;
+import model.Tabuleiro;
 import controller.Controle;
 
 public class AtorNetGames implements OuvidorProxy {
 
     private Proxy mProxy;
-    private boolean mStatusConexao;
     private Tabuleiro mTabuleiro;
     private Controle mControle;
+    private boolean mIsPartidaCancelada;
     
     public AtorNetGames(Controle controle){
     	mProxy = Proxy.getInstance();
@@ -36,7 +38,6 @@ public class AtorNetGames implements OuvidorProxy {
     public int conectar(String enderecoServ, String nomeJogador) {
         try {
             mProxy.conectar(enderecoServ, nomeJogador);
-            this.mStatusConexao = true;
             return 200;
         } catch (JahConectadoException ex) {
             return 201;
@@ -49,13 +50,13 @@ public class AtorNetGames implements OuvidorProxy {
         }
     }
     
-    public void reiniciarPartida() throws NaoConectadoException{
-        try {
-            mProxy.reiniciarPartida();
-        } catch (NaoJogandoException ex) {
-            Logger.getLogger(AtorNetGames.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void reiniciarPartida() throws NaoConectadoException{
+//        try {
+//            mProxy.reiniciarPartida();
+//        } catch (NaoJogandoException ex) {
+//            Logger.getLogger(AtorNetGames.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
     public void enviarJogada(Lance lance) {
         try {
@@ -66,29 +67,15 @@ public class AtorNetGames implements OuvidorProxy {
         }
     }
     
-//    public void existeJogador() {
-//        try {
-//        	
-//        	Lance criarJogo = new Lance();
-//        	
-//        	criarJogo.setCriarJogo(true);
-//        	
-//            mProxy.enviaJogada(criarJogo);
-//
-//        } catch (NaoJogandoException ex) {
-//
-//        }
-//    }
-    
     public void encerrarPartida() throws NaoJogandoException {
-        
+            	
          try {
-         JOptionPane.showMessageDialog(null, "Obrigado por jogar nosso jogo :)");
-         mProxy.finalizarPartida();
-         System.exit(0);
+        	 //JOptionPane.showMessageDialog(null, "Obrigado por jogar nosso jogo :)");
+        	 mProxy.finalizarPartida();
+        	 //System.exit(0);
 
          } catch (NaoConectadoException ex) {
-         System.err.println("Erro: " + ex);
+        	 System.err.println("Erro: " + ex);
          }
     }
 
@@ -105,7 +92,6 @@ public class AtorNetGames implements OuvidorProxy {
     public void desconectar() {
         try {
             mProxy.desconectar();
-
         } catch (NaoConectadoException e) {
         }
     }
@@ -128,8 +114,6 @@ public class AtorNetGames implements OuvidorProxy {
 
     @Override
     public void finalizarPartidaComErro(String message) {
-        //JOptionPane.showMessageDialog(null, "O conexão com outro jogador foi perdida, você venceu");
-        System.exit(0);
     }
 
     @Override
@@ -138,9 +122,7 @@ public class AtorNetGames implements OuvidorProxy {
 
     @Override
     public void tratarConexaoPerdida() {
-        /**
-         * @not used;
-         */
+    	//mControle.conexaoPerdida();
     }
 
     @Override
@@ -151,26 +133,22 @@ public class AtorNetGames implements OuvidorProxy {
     }
 
     public boolean temAdversario() {
-    	
-        return !this.mProxy.obterNomeAdversarios().isEmpty();
-        
+        return !this.mProxy.obterNomeAdversarios().isEmpty();  
     }
 
 	@Override
 	public void receberJogada(Jogada jogada) {
-				
-		Lance lance = (Lance) jogada;
-		
-		if(lance.isPartidaDesistida()){
+						
+		if(((Lance) jogada).isPartidaDesistida()){
 			mControle.partidaCancelada();
 		} 
-		else if(lance.isVencedorExiste()){
-			mTabuleiro.trocarPosicao(lance.getPrePos(), lance.getPosPos());
+		else if(((Lance) jogada).isVencedorExiste()){
+			mTabuleiro.realizarLanceOponente(((Lance) jogada).getPrePos(), ((Lance) jogada).getPosPos());
 			mControle.informarPerdedor();
 		}else {
-			mTabuleiro.trocarPosicao(lance.getPrePos(), lance.getPosPos());
 			mTabuleiro.setDaVezJogador(true);
-			mControle.mostraDaVezTabuleiro();
+			mControle.mostraDaVezTabuleiro(true);
+			mTabuleiro.realizarLanceOponente(((Lance) jogada).getPrePos(), ((Lance) jogada).getPosPos());
 		}
 	}
 }

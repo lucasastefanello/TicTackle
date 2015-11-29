@@ -5,10 +5,20 @@ public class Jogador {
 	private String name;
 	private String cor;
 	private boolean daVez;
+	private int tipo;
 	
-	public Jogador(String name, String cor){
+	public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+
+	public Jogador(String name, String cor, int tipo){
 		this.name = name;
 		this.cor = cor;
+		this.tipo = tipo;
 	}
 	
 	public String getName() {

@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 
+import network.AtorNetGames;
 import controller.Controle;
 
 public class Tabuleiro{
@@ -12,7 +13,6 @@ public class Tabuleiro{
 	private Jogador mJogador;
 	private VerificaVencedor existeVencedor;
 	private Posicao [] posicoes;
-	private int [] estado;
 	private char[][] matriz;
 	private String[] combinacoes;
 	private AtorNetGames mAtorNetGames;
@@ -30,9 +30,7 @@ public class Tabuleiro{
 		mControle = controle;
 	
 		mJogador = jogador;
-		
-		mJogador.setDaVez(true);
-		
+				
 		combinacoes = new String[2];
 		
 		matriz = new char[4][4];
@@ -51,16 +49,20 @@ public class Tabuleiro{
 	
 	public boolean realizarLanceTabuleiro(Posicao prePos, Posicao posPos){
 		
-		if(mJogador.isDaVez()){
+		if(mJogador.isDaVez() && prePos.getType() == mJogador.getTipo()){
 
 			if(ehLanceValido(prePos, posPos)) {
 					
-				trocarPosicao(prePos, posPos);
+				trocarPosicao(prePos, posPos);		
 				
-				if(ehVencedor(0)){
-					mControle.informarVencedor();
+				if(ehVencedor(mJogador.getTipo())){
 					
+					mControle.informarVencedor();
+					setDaVezJogador(false);
+				
 					Lance lanceInformarPerdedor = new Lance();
+					lanceInformarPerdedor.setPrePos(prePos);
+					lanceInformarPerdedor.setPosPos(posPos);
 					lanceInformarPerdedor.setVencedorExiste(true);
 					mAtorNetGames.enviarJogada(lanceInformarPerdedor);
 					
@@ -68,8 +70,11 @@ public class Tabuleiro{
 					Lance lanceNormal = new Lance();
 					lanceNormal.setVencedorExiste(false);
 					lanceNormal.setPartidaDesistida(false);
+					lanceNormal.setPrePos(prePos);
+					lanceNormal.setPosPos(posPos);
 					mAtorNetGames.enviarJogada(lanceNormal);
 					setDaVezJogador(false);
+					mControle.mostraDaVezTabuleiro(false);
 				}
 			}
 
@@ -84,7 +89,7 @@ public class Tabuleiro{
 	
 	public boolean ehLanceValido(Posicao prePos, Posicao posPos){
 		
-		if(posPos.getType() == -1 && (prePos.getType() == 1 || prePos.getType() == 0)){
+		if(posPos.getType() == -1 && posPos.getType() != mJogador.getTipo() && (prePos.getType() == 1 || prePos.getType() == 0)){
 			
 			boolean diferenceColunm = Math.abs(prePos.getColumn() - posPos.getColumn()) == 1;
 			boolean diferenceRow = Math.abs(prePos.getRow() - posPos.getRow()) == 1;
@@ -102,6 +107,21 @@ public class Tabuleiro{
 		return false;
 	}
 	
+	public void realizarLanceOponente(Posicao prePos, Posicao posPos){
+		
+		for(int i = 0; i < posicoes.length; i++){
+			if(posicoes[i].getColumn() == prePos.getColumn() && posicoes[i].getRow() == prePos.getRow()){
+				prePos = posicoes[i];
+			}
+			
+			if(posicoes[i].getColumn() == posPos.getColumn() && posicoes[i].getRow() == posPos.getRow()){
+				posPos = posicoes[i];
+			}
+		}
+		
+		trocarPosicao(prePos, posPos);	
+	}
+	
 	public void trocarPosicao(Posicao prePos, Posicao posPos){
 		int tempTypePre = prePos.getType();
 		int tempTypePos = posPos.getType();
@@ -111,13 +131,16 @@ public class Tabuleiro{
 		
 		setCor(prePos, posPos);
 		
-		prePos.setImagem(espacoVazio);
+		prePos.repaint();
+		posPos.repaint();
 		
-		if(posPos.getType() == 0){
-			posPos.setImagem(peaoAzul);
-		}else{
-			posPos.setImagem(peaoVermelho);
-		}
+//		prePos.setImagem(espacoVazio);
+//		
+//		if(posPos.getType() == 0){
+//			posPos.setImagem(peaoAzul);
+//		}else{
+//			posPos.setImagem(peaoVermelho);
+//		}
 	}
 	
 	
@@ -144,44 +167,6 @@ public class Tabuleiro{
 		return existeVencedor.solve();
 	}
 	
-	
-	public void getEstado(){
-		for(int i = 0; i < posicoes.length; i ++){
-			estado[i] = posicoes[i].getType();
-		}
-	}
-	
-//	public void enviaEstado(Posicao prePos, Posicao posPre){
-//		Posicao [] estado = new Posicao[2];
-//		estado[0] = prePos;
-//		estado[1] = posPre;
-//		
-//		// netGames envia array...
-//	}
-//	
-//	public void recebeEstado(Posicao prePos, Posicao posPos){
-//		
-//		int columnPre = prePos.getColumn();
-//		int rowPre = prePos.getRow();
-//	
-//		int columnPos = posPos.getColumn();
-//		int rowPos = posPos.getRow();
-//		
-//		for(int i = 0; i < posicoes.length; i ++){
-//			
-//			if(posicoes[i].getColumn() == columnPre && posicoes[i].getRow() == rowPre){
-//				prePos = posicoes[i];
-//			}
-//			
-//			if(posicoes[i].getColumn() == columnPos && posicoes[i].getRow() == rowPos){
-//				posPos = posicoes[i];
-//			}
-//		}
-//		
-//		trocarPosicao(prePos, posPos);
-//		setCor(prePos, posPos);
-//	}
-	
 	public void inicializarMatriz(){
 		
 		if(posicoes != null){
@@ -205,7 +190,7 @@ public class Tabuleiro{
 	}
 	
 	
-	public void getPosicoes(Posicao[] posicoes){
+	public void setPosicoes(Posicao[] posicoes){
 		this.posicoes = posicoes;
 	}	
 	

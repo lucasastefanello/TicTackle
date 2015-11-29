@@ -1,4 +1,4 @@
-package view;
+package view_main_gui;
 
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -22,6 +22,7 @@ import java.io.File;
 import java.awt.Component;
 
 import javax.swing.JLabel;
+import java.awt.Font;
 
 public class ImagemTabuleiro extends JFrame {
 
@@ -53,8 +54,6 @@ public class ImagemTabuleiro extends JFrame {
 	protected Posicao position_4_3;
 	protected Posicao position_4_4;
 	
-	protected Posicao daVez;
-	
 	protected Posicao prePos;
 	
 	protected int contarCliques;
@@ -63,6 +62,9 @@ public class ImagemTabuleiro extends JFrame {
 	private JButton btn_como_jogar;
 	private JButton btn_desistir_partida;
 	private Controle mControle;
+	private JLabel cor_jogador;
+	private JLabel jogador_da_vez;
+	private JLabel label;
 	
 //	/**
 //	 * Launch the application.
@@ -97,56 +99,54 @@ public class ImagemTabuleiro extends JFrame {
 		
 		container = new JPanel();
 				
-		position_1_1 = new Posicao(loadImage("peaoVermelho.png"), 1, 1, 1);
+		position_1_1 = new Posicao(1, 1, 1);
 		position_1_1.setLayout(null);
 
-		position_1_2 = new Posicao(loadImage("peaoAzul.png"), 0, 1, 2);
+		position_1_2 = new Posicao( 0, 1, 2);
 		position_1_2.setLayout(null);
 
-		position_1_3 = new Posicao(loadImage("peaoVermelho.png"), 1, 1, 3);
+		position_1_3 = new Posicao( 1, 1, 3);
 		position_1_3.setLayout(null);
 
-		position_1_4 = new Posicao(loadImage("peaoAzul.png"), 0, 1, 4);
+		position_1_4 = new Posicao( 0, 1, 4);
 		position_1_4.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		position_1_4.setLayout(null);
 		
-		position_2_1 = new Posicao(loadImage("espacoVazio.png"), -1, 2, 1);
+		position_2_1 = new Posicao( -1, 2, 1);
 		position_2_1.setLayout(null);
 
-		position_2_2 = new Posicao(loadImage("espacoVazio.png"), -1, 2, 2);
+		position_2_2 = new Posicao( -1, 2, 2);
 		position_2_2.setLayout(null);
 
-		position_2_3 = new Posicao(loadImage("espacoVazio.png"), -1, 2, 3);
+		position_2_3 = new Posicao( -1, 2, 3);
 		position_2_3.setLayout(null);
 
-		position_2_4 = new Posicao(loadImage("espacoVazio.png"), -1, 2, 4);
+		position_2_4 = new Posicao( -1, 2, 4);
 		position_2_4.setLayout(null);
 
-		position_3_1 = new Posicao(loadImage("espacoVazio.png"), -1, 3, 1);
+		position_3_1 = new Posicao( -1, 3, 1);
 		position_3_1.setLayout(null);
 
-		position_3_2 = new Posicao(loadImage("espacoVazio.png"), -1, 3, 2);
+		position_3_2 = new Posicao( -1, 3, 2);
 		position_3_2.setLayout(null);
 
-		position_3_3 = new Posicao(loadImage("espacoVazio.png"), -1, 3, 3);
+		position_3_3 = new Posicao( -1, 3, 3);
 		position_3_3.setLayout(null);
 
-		position_3_4 = new Posicao(loadImage("espacoVazio.png"), -1, 3, 4);
+		position_3_4 = new Posicao( -1, 3, 4);
 		position_3_4.setLayout(null);
 
-		position_4_1 = new Posicao(loadImage("peaoAzul.png"), 0, 4, 1);
+		position_4_1 = new Posicao( 0, 4, 1);
 		position_4_1.setLayout(null);
 
-		position_4_2 = new Posicao(loadImage("peaoVermelho.png"), 1, 4, 2);
+		position_4_2 = new Posicao( 1, 4, 2);
 		position_4_2.setLayout(null);
 
-		position_4_3 = new Posicao(loadImage("peaoAzul.png"), 0, 4, 3);
+		position_4_3 = new Posicao( 0, 4, 3);
 		position_4_3.setLayout(null);
 
-		position_4_4 = new Posicao(loadImage("peaoVermelho.png"), 1, 4, 4);
+		position_4_4 = new Posicao( 1, 4, 4);
 		position_4_4.setLayout(null);
-		
-		daVez = new Posicao(loadImage("peaoVermelho.png"), 1, 4, 4); ///continuar aqui
 		
 		panel = new JPanel();
 		
@@ -159,111 +159,127 @@ public class ImagemTabuleiro extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setBounds(100, 100, 700, 550);
+		setBounds(100, 100, 700, 650);
 		container.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(container);
 		container.setBorder(BORDER_COMPOUND);
 		
 		position_1_1.setBackground(Color.RED);
-		position_1_1.setBounds(17, 11, 103, 100);
+		position_1_1.setBounds(35, 119, 103, 100);
 		position_1_1.setBorder(BORDER_COMPOUND);
 		container.add(position_1_1);
 		
 		position_1_2.setBackground(Color.BLUE);
-		position_1_2.setBounds(137, 11, 100, 100);
+		position_1_2.setBounds(155, 119, 100, 100);
 		position_1_2.setBorder(BORDER_COMPOUND);
 		container.add(position_1_2);
 		
 		position_1_3.setBackground(Color.RED);
-		position_1_3.setBounds(254, 11, 100, 100);
+		position_1_3.setBounds(272, 119, 100, 100);
 		position_1_3.setBorder(BORDER_COMPOUND);
 		container.add(position_1_3);
 		
 		position_1_4.setBackground(Color.BLUE);
-		position_1_4.setBounds(371, 11, 100, 100);
+		position_1_4.setBounds(389, 119, 100, 100);
 		position_1_4.setBorder(BORDER_COMPOUND);
 		container.add(position_1_4);
 		
 		position_2_1.setBackground(Color.LIGHT_GRAY);
-		position_2_1.setBounds(17, 123, 103, 100);
+		position_2_1.setBounds(35, 231, 103, 100);
 		position_2_1.setBorder(BORDER_COMPOUND);
 		container.add(position_2_1);
 		
 		position_2_2.setBackground(Color.LIGHT_GRAY);
-		position_2_2.setBounds(137, 123, 100, 100);
+		position_2_2.setBounds(155, 231, 100, 100);
 		position_2_2.setBorder(BORDER_COMPOUND);
 		container.setLayout(null);
 		container.add(position_2_2);
 		
 		position_2_3.setBackground(Color.LIGHT_GRAY);
-		position_2_3.setBounds(254, 123, 100, 100);
+		position_2_3.setBounds(272, 231, 100, 100);
 		position_2_3.setBorder(BORDER_COMPOUND);
 		container.add(position_2_3);
 		
 		position_2_4.setBackground(Color.LIGHT_GRAY);
-		position_2_4.setBounds(371, 123, 100, 100);
+		position_2_4.setBounds(389, 231, 100, 100);
 		position_2_4.setBorder(BORDER_COMPOUND);
 		container.add(position_2_4);
 		
 		position_3_1.setBackground(Color.LIGHT_GRAY);
-		position_3_1.setBounds(18, 235, 100, 100);
+		position_3_1.setBounds(36, 343, 100, 100);
 		position_3_1.setBorder(BORDER_COMPOUND);
 		container.add(position_3_1);
 		
 		position_3_2.setBackground(Color.LIGHT_GRAY);
-		position_3_2.setBounds(136, 235, 100, 100);
+		position_3_2.setBounds(154, 343, 100, 100);
 		position_3_2.setBorder(BORDER_COMPOUND);
 		container.add(position_3_2);
 		
 		position_3_3.setBackground(Color.LIGHT_GRAY);
-		position_3_3.setBounds(254, 235, 100, 100);
+		position_3_3.setBounds(272, 343, 100, 100);
 		position_3_3.setBorder(BORDER_COMPOUND);
 		container.add(position_3_3);
 		
 		position_3_4.setBackground(Color.LIGHT_GRAY);
-		position_3_4.setBounds(372, 235, 100, 100);
+		position_3_4.setBounds(390, 343, 100, 100);
 		position_3_4.setBorder(BORDER_COMPOUND);
 		container.add(position_3_4);
 		
 		position_4_1.setBackground(Color.BLUE);
-		position_4_1.setBounds(18, 347, 100, 100);
+		position_4_1.setBounds(36, 455, 100, 100);
 		position_4_1.setBorder(BORDER_COMPOUND);
 		container.add(position_4_1);
 		
 		position_4_2.setBackground(Color.RED);
-		position_4_2.setBounds(136, 347, 100, 100);
+		position_4_2.setBounds(154, 455, 100, 100);
 		position_4_2.setBorder(BORDER_COMPOUND);
 		container.add(position_4_2);
 		
 		position_4_3.setBackground(Color.BLUE);
-		position_4_3.setBounds(254, 347, 100, 100);
+		position_4_3.setBounds(272, 455, 100, 100);
 		position_4_3.setBorder(BORDER_COMPOUND);
 		container.add(position_4_3);
 		
 		position_4_4.setBackground(Color.RED);
-		position_4_4.setBounds(372, 347, 100, 100);
+		position_4_4.setBounds(390, 455, 100, 100);
 		position_4_4.setBorder(BORDER_COMPOUND);
 		container.add(position_4_4);
 
-		panel.setBounds(12, 475, 467, 39);
+		panel.setBounds(30, 583, 467, 39);
 		panel.setLayout(null);
 		panel.add(btn_como_jogar);
 		container.add(panel);
-
-		container.add(daVez);
 		
 		btn_como_jogar.setBounds(78, 5, 122, 29);
 		
 		btn_desistir_partida.setBounds(228, 5, 159, 29);
 		panel.add(btn_desistir_partida);
 		
-		JLabel lblJogadorDaVez = new JLabel("Jogador Da Vez:");
-		lblJogadorDaVez.setBounds(531, 141, 118, 16);
-		container.add(lblJogadorDaVez);
+		JLabel titulo_jogador_da_vez = new JLabel("Jogador Da Vez:");
+		titulo_jogador_da_vez.setBounds(531, 141, 118, 16);
+		container.add(titulo_jogador_da_vez);
 		
-		daVez.setSize(100, 100);
-		daVez.setLocation(531, 192);
+		jogador_da_vez = new JLabel("");
+		jogador_da_vez.setBounds(531, 190, 103, 33);
+		jogador_da_vez.setOpaque(true);
+		container.add(jogador_da_vez);
 		
+		JLabel titulo_cor_jogador = new JLabel("Sua cor é:");
+		titulo_cor_jogador.setBounds(531, 319, 118, 16);
+		container.add(titulo_cor_jogador);
+		
+		cor_jogador = new JLabel("");
+		cor_jogador.setBounds(531, 361, 103, 33);
+		cor_jogador.setOpaque(true);
+		container.add(cor_jogador);
+		
+		label = new JLabel("Tic Tackle");
+		label.setForeground(new Color(0, 204, 102));
+		label.setFont(new Font("Lithos Pro", Font.PLAIN, 40));
+		label.setBounds(155, 25, 219, 57);
+		container.add(label);
+		
+				
 	}
 
 	public void addListeners(){
@@ -438,7 +454,7 @@ public class ImagemTabuleiro extends JFrame {
 			contarCliques = 0;
 			
 			if(mControle.realizarLanceControle(prePos, position)){
-				mControle.getPosicoesGame(getPosicoes());
+				mControle.setPosicoesParaTabuleiro(getPosicoes());
 			}
 		}
 	}
@@ -471,12 +487,24 @@ public class ImagemTabuleiro extends JFrame {
 		dispose();
 	}
 
+	public void mostraCorJogadorTabuleiro(String cor){
+		if(cor.equals("vermelho")) {
+			cor_jogador.setBackground(Color.RED);
+			cor_jogador.repaint();
+		}else {
+			cor_jogador.setBackground(Color.BLUE);
+			cor_jogador.repaint();
+		}
+	}
+	
 	public void mostraDaVezTabuleiro(String cor) {
 		
 		if(cor.equals("vermelho")) {
-			daVez.setImagem(loadImage("peaoVermelho"));
+			jogador_da_vez.setBackground(Color.RED);
+			jogador_da_vez.repaint();
 		}else {
-			daVez.setImagem(loadImage("peaoAzul"));
+			jogador_da_vez.setBackground(Color.BLUE);
+			jogador_da_vez.repaint();
 		}
 	}
 }

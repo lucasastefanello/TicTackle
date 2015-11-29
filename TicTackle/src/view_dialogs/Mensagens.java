@@ -1,5 +1,6 @@
-package dialogs;
+package view_dialogs;
 
+import network.Conectar;
 import controller.Controle;
 
 public class Mensagens {
@@ -7,12 +8,12 @@ public class Mensagens {
 	private Controle mControle;
 	
 	private Conectar mConectar;
-	private ComecarPartida mComecarPartida;
 	private ComoJogar mComoJogar;
 	private DesistirPartida mDesistirPartida;
 	private InformarVencedor mInformarVencedor;
 	private PartidaCancelada mPartidaCancelada;
 	private InformarPerdedor mInformarPerdedor;
+	private ConexaoPerdida mConexaoPerdida;
 
 	public Mensagens(Controle controle){
 		mControle = controle;
@@ -51,11 +52,7 @@ public class Mensagens {
 			mConectar.showErroPropriedades();
 		}
 	}
-	
-	public void mostrarComecarPartida(){
-		mComecarPartida = new ComecarPartida(mControle);
-	}
-	
+
 	public void mostrarComoJogar(){
 		mComoJogar = new ComoJogar();
 	}
@@ -73,7 +70,7 @@ public class Mensagens {
 	}
 	
 	public void mostrarPerdedor(){
-		mInformarPerdedor = new InformarPerdedor();
+		mInformarPerdedor = new InformarPerdedor(mControle);
 	}
 
 	public void resetConectar() {
@@ -82,5 +79,9 @@ public class Mensagens {
 	
 	public void fecharConectar(){
 		mConectar.fecharConectar();
+	}
+	
+	public void mostrarConexaoPerdida(){
+		mConexaoPerdida = new ConexaoPerdida(mControle);
 	}
 }
